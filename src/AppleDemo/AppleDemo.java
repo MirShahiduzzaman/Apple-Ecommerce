@@ -202,7 +202,7 @@ public class AppleDemo extends JFrame
 					status.setBackground(Color.LIGHT_GRAY);
 				}
 			});
-			btnNewButton_1.setIcon(new ImageIcon("C:\\Users\\nkounavelis\\Desktop\\Kiosk-iPhone 13.jpg"));
+			btnNewButton_1.setIcon(new ImageIcon("./images/iphone13.png"));
 			btnNewButton_1.setBounds(200, 290, 231, 200);
 			contentPane.add(btnNewButton_1);
 
@@ -289,6 +289,7 @@ public class AppleDemo extends JFrame
 			//
 			JButton btnNewButton_3 = new JButton("EXIT");
 			btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			btnNewButton_3.setBackground(Color.RED);
 			btnNewButton_3.addActionListener(new ActionListener()
 			{
 				public void actionPerformed(ActionEvent arg0)

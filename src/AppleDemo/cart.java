@@ -1,5 +1,6 @@
 package AppleDemo;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,7 +38,7 @@ public class cart extends JFrame
 		
 		// size of the frame
 		//
-		setSize(970,670);
+		setSize(970,520);
 		
 		//
 		// panel title
@@ -203,23 +204,114 @@ public class cart extends JFrame
 		stateF.setColumns(40);
 		contentPane.add(stateF);
 		
+		//
+		//  create a card # Label
+		//
+		JLabel cardNumL = new JLabel("Card # : ");
+		cardNumL.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		cardNumL.setBounds(30, 220, 200, 23);
+		contentPane.add(cardNumL);
 		
-//		//
-//		//  create a email Label
-//		//
-//		JLabel emailL = new JLabel("    Email : ");
-//		emailL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-//		emailL.setBounds(30, 330, 200, 23);
-//		contentPane.add(emailL);
-//		
-//		//
-//		// field where user email
-//		//
-//		JTextField emailF = new JTextField();
-//		emailF.setEditable(true);
-//		emailF.setBounds(100, 330, 150, 34);
-//		emailF.setColumns(40);
-//		contentPane.add(emailF);
+		//
+		// field where user state
+		//
+		JTextField cardNumF = new JTextField();
+		cardNumF.setEditable(true);
+		cardNumF.setBounds(100, 225, 200, 20);
+		cardNumF.setColumns(40);
+		contentPane.add(cardNumF);
+		
+		//
+		//  create a expire Label
+		//
+		JLabel cExpireL = new JLabel("Expiration : ");
+		cExpireL.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		cExpireL.setBounds(55, 240, 200, 23);
+		contentPane.add(cExpireL);
+		
+		//
+		// field where user month expired
+		//
+		JTextField mExpireF = new JTextField();
+		mExpireF.setEditable(true);
+		mExpireF.setBounds(130, 245, 30, 15);
+		mExpireF.setColumns(40);
+		contentPane.add(mExpireF);
+		
+		//
+		//  create a slash1 Label
+		//
+		JLabel slashL = new JLabel("/");
+		slashL.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		slashL.setBounds(162, 240, 200, 23);
+		contentPane.add(slashL);
+		
+		//
+		// field where user date expired
+		//
+		JTextField dExpireF = new JTextField();
+		dExpireF.setEditable(true);
+		dExpireF.setBounds(170, 245, 30, 15);
+		dExpireF.setColumns(40);
+		contentPane.add(dExpireF);
+		
+		//
+		//  create a slash2 Label
+		//
+		JLabel slash2L = new JLabel("/");
+		slash2L.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		slash2L.setBounds(202, 240, 200, 23);
+		contentPane.add(slash2L);
+		
+		//
+		// field where user year expired
+		//
+		JTextField yExpireF = new JTextField();
+		yExpireF.setEditable(true);
+		yExpireF.setBounds(210, 245, 30, 15);
+		yExpireF.setColumns(40);
+		contentPane.add(yExpireF);
+		
+		//
+		//  create a month expire Label
+		//
+		JLabel mExpireL = new JLabel("mm");
+		mExpireL.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		mExpireL.setBounds(135, 253, 200, 23);
+		contentPane.add(mExpireL);
+		
+		//
+		//  create a date expire Label
+		//
+		JLabel dExpireL = new JLabel("dd");
+		dExpireL.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		dExpireL.setBounds(175, 253, 200, 23);
+		contentPane.add(dExpireL);
+		
+		//
+		//  create a year expire Label
+		//
+		JLabel yExpireL = new JLabel("yy");
+		yExpireL.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		yExpireL.setBounds(215, 253, 200, 23);
+		contentPane.add(yExpireL);
+		
+		//
+		//  create a cvv Label
+		//
+		JLabel cvvL = new JLabel("CVV : ");
+		cvvL.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		cvvL.setBounds(55, 265, 200, 23);
+		contentPane.add(cvvL);
+		
+		//
+		// field where user month expired
+		//
+		JTextField cvvF = new JTextField();
+		cvvF.setEditable(true);
+		cvvF.setBounds(95, 270, 30, 15);
+		cvvF.setColumns(40);
+		contentPane.add(cvvF);
 		
 		
 		//
@@ -246,6 +338,24 @@ public class cart extends JFrame
 		textField.setBounds(807, 420, 124, 34);
 		contentPane.add(textField);
 		textField.setColumns(10);
+		
+		//
+		//  create a label for status
+		//
+		JLabel statusLabel = new JLabel("Status : ");
+		statusLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		statusLabel.setBounds(30, 320, 100, 23);
+		contentPane.add(statusLabel);
+		
+		//
+		// field where to see status information
+		//
+		JTextField status = new JTextField();
+		status.setEditable(false);
+		status.setBounds(80, 320, 200, 34);
+		contentPane.add(status);
+		status.setColumns(40);
+		status.setBackground(Color.LIGHT_GRAY);
 		
 		//
 		// EXIT Button

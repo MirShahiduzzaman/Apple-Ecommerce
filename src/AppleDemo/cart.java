@@ -4,10 +4,12 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
@@ -51,10 +53,18 @@ public class cart extends JFrame
 		//
 		//  create a Name Label
 		//
-		JLabel nameL = new JLabel("     Name : ");
+		JLabel nameL = new JLabel("Name : ");
 		nameL.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		nameL.setBounds(30, 30, 200, 23);
 		contentPane.add(nameL);
+		
+		//
+		//  create a First Name Label
+		//
+		JLabel firstNameL = new JLabel("first");
+		firstNameL.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		firstNameL.setBounds(175, 50, 200, 23);
+		contentPane.add(firstNameL);
 		
 		//
 		// field where user first name
@@ -64,6 +74,14 @@ public class cart extends JFrame
 		firstNameF.setBounds(110, 35, 150, 20);
 		firstNameF.setColumns(30);
 		contentPane.add(firstNameF);
+		
+		//
+		//  create a Last Name Label
+		//
+		JLabel lastNameL = new JLabel("last");
+		lastNameL.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lastNameL.setBounds(340, 50, 200, 23);
+		contentPane.add(lastNameL);
 		
 		//
 		// field where user last name
@@ -78,7 +96,7 @@ public class cart extends JFrame
 		//
 		//  create a phone Label
 		//
-		JLabel phoneL = new JLabel("    Phone : ");
+		JLabel phoneL = new JLabel("Phone : ");
 		phoneL.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		phoneL.setBounds(30, 75, 200, 20);
 		contentPane.add(phoneL);
@@ -92,70 +110,54 @@ public class cart extends JFrame
 		phoneF.setColumns(40);
 		contentPane.add(phoneF);
 		
-//		//
-//		//  create a Address Label
-//		//
-//		JLabel addressL = new JLabel("  Address : ");
-//		addressL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-//		addressL.setBounds(30, 80, 200, 23);
-//		contentPane.add(addressL);
-//		
-//		//
-//		// field where user address
-//		//
-//		JTextField addressF = new JTextField();
-//		addressF.setEditable(true);
-//		addressF.setBounds(100, 80, 150, 34);
-//		addressF.setColumns(40);
-//		contentPane.add(addressF);
-		
+		//
+		//  create a address Label
+		//
+		JLabel addressL = new JLabel("Shipping Address : ");
+		addressL.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		addressL.setBounds(30, 110, 200, 20);
+		contentPane.add(addressL);
 		
 		//
-		//  create a city Label
+		// field where user street address
 		//
-		JLabel cityL = new JLabel("     City : ");
-		cityL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cityL.setBounds(30, 130, 200, 23);
-		contentPane.add(cityL);
-		
-		//
-		// field where user city
-		//
-		JTextField cityF = new JTextField();
-		cityF.setEditable(true);
-		cityF.setBounds(100, 130, 150, 34);
-		cityF.setColumns(40);
-		contentPane.add(cityF);
-		
-		
-		
+		JTextField addressF = new JTextField();
+		addressF.setEditable(true);
+		addressF.setBounds(150, 115, 200, 20);
+		addressF.setColumns(40);
+		contentPane.add(addressF);
 		
 		//
-		//  create a state Label
+		//  create a street address Label
 		//
-		JLabel stateL = new JLabel("   State : ");
-		stateL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		stateL.setBounds(30, 180, 200, 23);
-		contentPane.add(stateL);
+		JLabel streetL = new JLabel("Street Address");
+		streetL.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		streetL.setBounds(215, 130, 200, 20);
+		contentPane.add(streetL);
 		
 		//
-		// field where user state
+		// field where user apt #
 		//
-		JTextField stateF = new JTextField();
-		stateF.setEditable(true);
-		stateF.setBounds(100, 180, 150, 34);
-		stateF.setColumns(40);
-		contentPane.add(stateF);
+		JTextField aptF = new JTextField();
+		aptF.setEditable(true);
+		aptF.setBounds(350, 115, 50, 20);
+		aptF.setColumns(40);
+		contentPane.add(aptF);
 		
-		
-		
+		//
+		//  create a apt # Label
+		//
+		JLabel aptL = new JLabel("Apt #");
+		aptL.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		aptL.setBounds(360, 130, 200, 20);
+		contentPane.add(aptL);
 		
 		//
 		//  create a zip Label
 		//
-		JLabel zipL = new JLabel("      Zip : ");
+		JLabel zipL = new JLabel("Zip : ");
 		zipL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		zipL.setBounds(30, 230, 200, 23);
+		zipL.setBounds(30, 150, 200, 20);
 		contentPane.add(zipL);
 		
 		//
@@ -163,31 +165,87 @@ public class cart extends JFrame
 		//
 		JTextField zipF = new JTextField();
 		zipF.setEditable(true);
-		zipF.setBounds(100, 230, 150, 34);
+		zipF.setBounds(70, 155, 200, 20);
 		zipF.setColumns(40);
 		contentPane.add(zipF);
+
+		//
+		//  create a city Label
+		//
+		JLabel cityL = new JLabel("City : ");
+		cityL.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		cityL.setBounds(30, 175, 200, 23);
+		contentPane.add(cityL);
 		
+		//
+		// field where user city
+		//
+		JTextField cityF = new JTextField();
+		cityF.setEditable(true);
+		cityF.setBounds(100, 180, 80, 20);
+		cityF.setColumns(40);
+		contentPane.add(cityF);
+		
+		//
+		//  create a state Label
+		//
+		JLabel stateL = new JLabel("State : ");
+		stateL.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		stateL.setBounds(30, 195, 200, 23);
+		contentPane.add(stateL);
+		
+		//
+		// field where user state
+		//
+		JTextField stateF = new JTextField();
+		stateF.setEditable(true);
+		stateF.setBounds(100, 200, 40, 20);
+		stateF.setColumns(40);
+		contentPane.add(stateF);
+		
+		
+//		//
+//		//  create a email Label
+//		//
+//		JLabel emailL = new JLabel("    Email : ");
+//		emailL.setFont(new Font("Tahoma", Font.PLAIN, 14));
+//		emailL.setBounds(30, 330, 200, 23);
+//		contentPane.add(emailL);
+//		
+//		//
+//		// field where user email
+//		//
+//		JTextField emailF = new JTextField();
+//		emailF.setEditable(true);
+//		emailF.setBounds(100, 330, 150, 34);
+//		emailF.setColumns(40);
+//		contentPane.add(emailF);
 		
 		
 		//
-		//  create a email Label
+		// list of items that are being bought
 		//
-		JLabel emailL = new JLabel("    Email : ");
-		emailL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		emailL.setBounds(30, 330, 200, 23);
-		contentPane.add(emailL);
+		JTextArea textArea = new JTextArea();
+		textArea.setBounds(763, 11, 168, 382);
+		textArea.setEditable(false);
+		contentPane.add(textArea);
 		
 		//
-		// field where user email
+		//  create a label for total price
 		//
-		JTextField emailF = new JTextField();
-		emailF.setEditable(true);
-		emailF.setBounds(100, 330, 150, 34);
-		emailF.setColumns(40);
-		contentPane.add(emailF);
+		JLabel lblNewLabel = new JLabel("    Total Price   $");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel.setBounds(697, 424, 200, 23);
+		contentPane.add(lblNewLabel);
 		
-		
-		
+		//
+		// field where total accumulating price is being displayed
+		//
+		JTextField textField = new JTextField();
+		textField.setEditable(false);
+		textField.setBounds(807, 420, 124, 34);
+		contentPane.add(textField);
+		textField.setColumns(10);
 		
 		//
 		// EXIT Button

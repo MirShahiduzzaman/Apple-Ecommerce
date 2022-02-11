@@ -113,13 +113,12 @@ public class AppleDemo extends JFrame
 			idNum.setColumns(20);
 			
 			
-			
 			//
 			//  create a label for status
 			//
 			JLabel statusLabel = new JLabel("Status");
 			statusLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			statusLabel.setBounds(725, 60, 150, 23);
+			statusLabel.setBounds(725, 100, 150, 23);
 			contentPane.add(statusLabel);
 			
 			//
@@ -127,7 +126,7 @@ public class AppleDemo extends JFrame
 			//
 			JTextField status = new JTextField();
 			status.setEditable(false);
-			status.setBounds(725, 25, 200, 34);
+			status.setBounds(725, 65, 200, 34);
 			contentPane.add(status);
 			status.setColumns(40);
 			status.setBackground(Color.LIGHT_GRAY);
@@ -269,6 +268,21 @@ public class AppleDemo extends JFrame
 			lblNewLabel.setBounds(697, 525, 100, 23);
 			contentPane.add(lblNewLabel);
 			
+			//
+			// CART Button
+			//
+			JButton cart = new JButton("Cart");
+			cart.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			cart.addActionListener(new ActionListener()
+			{
+				public void actionPerformed(ActionEvent e)
+				{
+					cart coup = new cart();
+					coup.setVisible(true);
+				}
+			});
+			cart.setBounds(800, 20, 133, 34);
+			contentPane.add(cart);
 			
 			//
 			// EXIT Button

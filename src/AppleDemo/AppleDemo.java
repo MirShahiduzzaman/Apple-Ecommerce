@@ -95,22 +95,7 @@ public class AppleDemo extends JFrame
 			*/
 			
 			
-			//
-			//  create a label for appleid
-			//
-			JLabel idNumLabel = new JLabel("Enter your AppleID: ");
-			idNumLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			idNumLabel.setBounds(30, 525, 200, 23);
-			contentPane.add(idNumLabel);
 			
-			//
-			// field where user puts in appleid
-			//
-			JTextField idNum = new JTextField();
-			idNum.setEditable(true);
-			idNum.setBounds(200, 525, 150, 34);
-			contentPane.add(idNum);
-			idNum.setColumns(20);
 			
 			
 			//
@@ -281,7 +266,7 @@ public class AppleDemo extends JFrame
 					coup.setVisible(true);
 				}
 			});
-			cart.setBounds(800, 20, 133, 34);
+			cart.setBounds(800, 570, 133, 34);
 			contentPane.add(cart);
 			
 			//
@@ -319,7 +304,7 @@ public class AppleDemo extends JFrame
 			//
 			// SUBMIT Button
 			//
-			JButton submit = new JButton("SUBMIT");
+			/*JButton submit = new JButton("SUBMIT");
 			submit.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			submit.addActionListener(new ActionListener()
 			{
@@ -374,7 +359,7 @@ public class AppleDemo extends JFrame
 			contentPane.add(submit);
 			///800, 570, 133, 34 new loc
 			///200, 570, 133, 34 old loc
-
+*/
 			
 			//
 			// CLEAR Button
@@ -405,7 +390,7 @@ public class AppleDemo extends JFrame
 				
 						   textArea.setText("");
 						   textField.setText("");
-						   idNum.setText("");
+						   //idNum.setText("");
                       }
 		           }	
 				}

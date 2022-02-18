@@ -304,6 +304,9 @@ public class cart extends JFrame
 		cvvL.setBounds(55, 265, 200, 23);
 		contentPane.add(cvvL);
 		
+		
+		
+		
 		//
 		// field where user month expired
 		//
@@ -313,6 +316,22 @@ public class cart extends JFrame
 		cvvF.setColumns(40);
 		contentPane.add(cvvF);
 		
+		//
+		//  create a appleid Label
+		//
+		JLabel appleidL = new JLabel("Apple ID Email : ");
+		appleidL.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		appleidL.setBounds(55, 300, 200, 23);
+		contentPane.add(appleidL);
+		
+		//
+		// field for appleid
+		//
+		JTextField appleidF = new JTextField();
+		appleidF.setEditable(true);
+		appleidF.setBounds(155, 305, 30, 15);
+		appleidF.setColumns(40);
+		contentPane.add(appleidF);
 		
 		//
 		// list of items that are being bought
@@ -344,7 +363,7 @@ public class cart extends JFrame
 		//
 		JLabel statusLabel = new JLabel("Status : ");
 		statusLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		statusLabel.setBounds(30, 320, 100, 23);
+		statusLabel.setBounds(30, 330, 100, 23);
 		contentPane.add(statusLabel);
 		
 		//
@@ -352,7 +371,7 @@ public class cart extends JFrame
 		//
 		JTextField status = new JTextField();
 		status.setEditable(false);
-		status.setBounds(80, 320, 200, 34);
+		status.setBounds(80, 330, 200, 34);
 		contentPane.add(status);
 		status.setColumns(40);
 		status.setBackground(Color.LIGHT_GRAY);
@@ -423,7 +442,25 @@ public class cart extends JFrame
 		help.setBounds(450, 400, 133, 34);
 		contentPane.add(help);		
 		
+		//NOT IN USE
+		/*
+		//
+		//  create a label for appleid
+		//
+		JLabel idNumLabel = new JLabel("Enter your AppleID: ");
+		idNumLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		idNumLabel.setBounds(30, 525, 200, 23);
+		contentPane.add(idNumLabel);
 		
+		//
+		// field where user puts in appleid
+		//
+		JTextField idNum = new JTextField();
+		idNum.setEditable(true);
+		idNum.setBounds(200, 525, 150, 34);
+		contentPane.add(idNum);
+		idNum.setColumns(20);
+		*/
 		
 		
 		

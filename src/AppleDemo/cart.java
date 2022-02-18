@@ -1,412 +1,284 @@
 package AppleDemo;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-//import javax.swing.JCheckBox;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import java.awt.Dimension;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Color;
+import javax.swing.JTextArea;
 
-public class cart extends JFrame
-{
+public class cart extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField firstNameF;
+	private JTextField midNameF;
+	private JTextField lastNameF;
+	private JTextField phoneF;
+	private JTextField addressF;
+	private JTextField aptF;
+	private JTextField zipF;
+	private JTextField cityF;
+	private JTextField cardNumF;
+	private JTextField cardMonthF;
+	private JTextField cardDateF;
+	private JTextField cardYearF;
+	private JTextField cvvF;
+	private JTextField appleIdF;
+	private JTextField statusF;
+	private JTextField totalF;
 
 	/**
-	 * 
+	 * Launch the application.
 	 */
-	private static final long serialVersionUID = 1L;
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					cart frame = new cart();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
-	
-	public cart()
-	{
-		//
-		// Frame title display
-		//
-		String titleString = "--- Apple Store - Shopping Cart --- "; 				    
-		setTitle(titleString);
-		
+	static double total = 0;
+	/**
+	 * Create the frame.
+	 */
+	public cart() {
+		setTitle("--- Apple Store - Shopping Cart ---");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		
-		// size of the frame
-		//
 		setSize(970,520);
-		
-		//
-		// panel title
-		//
-		JPanel contentPane = new JPanel();
+		//setBounds(970, 670, 450, 300);
+		contentPane = new JPanel();
 		contentPane.setBorder(new TitledBorder(new EtchedBorder(), 
-				              "SHOPPING CART"));;
+	              "SHOPPING CART"));;
 		setContentPane(contentPane);
-			
+		contentPane.setLayout(null);
 		
+		JLabel fullNameL = new JLabel("Full Name:");
+		fullNameL.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		fullNameL.setBounds(56, 25, 72, 13);
+		contentPane.add(fullNameL);
 		
-		
-		//
-		//  create a Name Label
-		//
-		JLabel nameL = new JLabel("Name : ");
-		nameL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		nameL.setBounds(30, 30, 200, 23);
-		contentPane.add(nameL);
-		
-		//
-		//  create a First Name Label
-		//
-		JLabel firstNameL = new JLabel("first");
-		firstNameL.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		firstNameL.setBounds(175, 50, 200, 23);
-		contentPane.add(firstNameL);
-		
-		//
-		// field where user first name
-		//
-		JTextField firstNameF = new JTextField();
-		firstNameF.setEditable(true);
-		firstNameF.setBounds(110, 35, 150, 20);
-		firstNameF.setColumns(30);
-		contentPane.add(firstNameF);
-		
-		//
-		//  create a Last Name Label
-		//
-		JLabel lastNameL = new JLabel("last");
-		lastNameL.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lastNameL.setBounds(340, 50, 200, 23);
-		contentPane.add(lastNameL);
-		
-		//
-		// field where user last name
-		//
-		JTextField lastNameF = new JTextField();
-		lastNameF.setEditable(true);
-		lastNameF.setBounds(270, 35, 150, 20);
-		lastNameF.setColumns(30);
-		contentPane.add(lastNameF);
-		
-		
-		//
-		//  create a phone Label
-		//
-		JLabel phoneL = new JLabel("Phone : ");
+		JLabel phoneL = new JLabel("Phone Number:");
 		phoneL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		phoneL.setBounds(30, 75, 200, 20);
+		phoneL.setBounds(22, 60, 104, 13);
 		contentPane.add(phoneL);
 		
-		//
-		// field where user phone
-		//
-		JTextField phoneF = new JTextField();
-		phoneF.setEditable(true);
-		phoneF.setBounds(100, 80, 150, 20);
-		phoneF.setColumns(40);
-		contentPane.add(phoneF);
+		JLabel shippingL = new JLabel("Shipping Address:");
+		shippingL.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		shippingL.setBounds(10, 105, 114, 13);
+		contentPane.add(shippingL);
 		
-		//
-		//  create a address Label
-		//
-		JLabel addressL = new JLabel("Shipping Address : ");
-		addressL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		addressL.setBounds(30, 110, 200, 20);
-		contentPane.add(addressL);
-		
-		//
-		// field where user street address
-		//
-		JTextField addressF = new JTextField();
-		addressF.setEditable(true);
-		addressF.setBounds(150, 115, 200, 20);
-		addressF.setColumns(40);
-		contentPane.add(addressF);
-		
-		//
-		//  create a street address Label
-		//
-		JLabel streetL = new JLabel("Street Address");
-		streetL.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		streetL.setBounds(215, 130, 200, 20);
-		contentPane.add(streetL);
-		
-		//
-		// field where user apt #
-		//
-		JTextField aptF = new JTextField();
-		aptF.setEditable(true);
-		aptF.setBounds(350, 115, 50, 20);
-		aptF.setColumns(40);
-		contentPane.add(aptF);
-		
-		//
-		//  create a apt # Label
-		//
-		JLabel aptL = new JLabel("Apt #");
-		aptL.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		aptL.setBounds(360, 130, 200, 20);
-		contentPane.add(aptL);
-		
-		//
-		//  create a zip Label
-		//
-		JLabel zipL = new JLabel("Zip : ");
+		JLabel zipL = new JLabel("Zip Code:");
 		zipL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		zipL.setBounds(30, 150, 200, 20);
+		zipL.setBounds(84, 149, 72, 13);
 		contentPane.add(zipL);
 		
-		//
-		// field where user zip
-		//
-		JTextField zipF = new JTextField();
-		zipF.setEditable(true);
-		zipF.setBounds(70, 155, 200, 20);
-		zipF.setColumns(40);
-		contentPane.add(zipF);
-
-		//
-		//  create a city Label
-		//
-		JLabel cityL = new JLabel("City : ");
+		JLabel cityL = new JLabel("City:");
 		cityL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cityL.setBounds(30, 175, 200, 23);
+		cityL.setBounds(114, 177, 36, 13);
 		contentPane.add(cityL);
 		
-		//
-		// field where user city
-		//
-		JTextField cityF = new JTextField();
-		cityF.setEditable(true);
-		cityF.setBounds(100, 180, 80, 20);
-		cityF.setColumns(40);
-		contentPane.add(cityF);
-		
-		//
-		//  create a state Label
-		//
-		JLabel stateL = new JLabel("State : ");
+		JLabel stateL = new JLabel("State:");
 		stateL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		stateL.setBounds(30, 195, 200, 23);
+		stateL.setBounds(105, 205, 42, 13);
 		contentPane.add(stateL);
 		
-		//
-		// field where user state
-		//
-		JTextField stateF = new JTextField();
-		stateF.setEditable(true);
-		stateF.setBounds(100, 200, 40, 20);
-		stateF.setColumns(40);
-		contentPane.add(stateF);
-		
-		//
-		//  create a card # Label
-		//
-		JLabel cardNumL = new JLabel("Card # : ");
+		JLabel cardNumL = new JLabel("Card Number:");
 		cardNumL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cardNumL.setBounds(30, 220, 200, 23);
+		cardNumL.setBounds(22, 245, 93, 13);
 		contentPane.add(cardNumL);
 		
-		//
-		// field where user state
-		//
-		JTextField cardNumF = new JTextField();
-		cardNumF.setEditable(true);
-		cardNumF.setBounds(100, 225, 200, 20);
-		cardNumF.setColumns(40);
-		contentPane.add(cardNumF);
+		JLabel expirationL = new JLabel("Expiration:");
+		expirationL.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		expirationL.setBounds(69, 273, 72, 13);
+		contentPane.add(expirationL);
 		
-		//
-		//  create a expire Label
-		//
-		JLabel cExpireL = new JLabel("Expiration : ");
-		cExpireL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cExpireL.setBounds(55, 240, 200, 23);
-		contentPane.add(cExpireL);
-		
-		//
-		// field where user month expired
-		//
-		JTextField mExpireF = new JTextField();
-		mExpireF.setEditable(true);
-		mExpireF.setBounds(130, 245, 30, 15);
-		mExpireF.setColumns(40);
-		contentPane.add(mExpireF);
-		
-		//
-		//  create a slash1 Label
-		//
-		JLabel slashL = new JLabel("/");
-		slashL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		slashL.setBounds(162, 240, 200, 23);
-		contentPane.add(slashL);
-		
-		//
-		// field where user date expired
-		//
-		JTextField dExpireF = new JTextField();
-		dExpireF.setEditable(true);
-		dExpireF.setBounds(170, 245, 30, 15);
-		dExpireF.setColumns(40);
-		contentPane.add(dExpireF);
-		
-		//
-		//  create a slash2 Label
-		//
-		JLabel slash2L = new JLabel("/");
-		slash2L.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		slash2L.setBounds(202, 240, 200, 23);
-		contentPane.add(slash2L);
-		
-		//
-		// field where user year expired
-		//
-		JTextField yExpireF = new JTextField();
-		yExpireF.setEditable(true);
-		yExpireF.setBounds(210, 245, 30, 15);
-		yExpireF.setColumns(40);
-		contentPane.add(yExpireF);
-		
-		//
-		//  create a month expire Label
-		//
-		JLabel mExpireL = new JLabel("mm");
-		mExpireL.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		mExpireL.setBounds(135, 253, 200, 23);
-		contentPane.add(mExpireL);
-		
-		//
-		//  create a date expire Label
-		//
-		JLabel dExpireL = new JLabel("dd");
-		dExpireL.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		dExpireL.setBounds(175, 253, 200, 23);
-		contentPane.add(dExpireL);
-		
-		//
-		//  create a year expire Label
-		//
-		JLabel yExpireL = new JLabel("yy");
-		yExpireL.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		yExpireL.setBounds(215, 253, 200, 23);
-		contentPane.add(yExpireL);
-		
-		//
-		//  create a cvv Label
-		//
-		JLabel cvvL = new JLabel("CVV : ");
+		JLabel cvvL = new JLabel("CVV:");
 		cvvL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cvvL.setBounds(55, 265, 200, 23);
+		cvvL.setBounds(103, 304, 36, 13);
 		contentPane.add(cvvL);
 		
+		JLabel appleIdL = new JLabel("Apple ID Email:");
+		appleIdL.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		appleIdL.setBounds(27, 333, 104, 13);
+		contentPane.add(appleIdL);
 		
+		JLabel statusL = new JLabel("Status:");
+		statusL.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		statusL.setBounds(56, 375, 53, 13);
+		contentPane.add(statusL);
 		
+		JLabel totalL = new JLabel("Total:");
+		totalL.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		totalL.setBounds(731, 407, 42, 13);
+		contentPane.add(totalL);
 		
-		//
-		// field where user month expired
-		//
-		JTextField cvvF = new JTextField();
-		cvvF.setEditable(true);
-		cvvF.setBounds(95, 270, 30, 15);
-		cvvF.setColumns(40);
+		firstNameF = new JTextField();
+		firstNameF.setBounds(127, 24, 120, 19);
+		contentPane.add(firstNameF);
+		firstNameF.setColumns(10);
+		
+		JLabel fNameL = new JLabel("first");
+		fNameL.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		fNameL.setBounds(182, 43, 25, 13);
+		contentPane.add(fNameL);
+		
+		midNameF = new JTextField();
+		midNameF.setColumns(10);
+		midNameF.setBounds(257, 24, 31, 19);
+		contentPane.add(midNameF);
+		
+		JLabel mNameL = new JLabel("M.I.");
+		mNameL.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		mNameL.setBounds(265, 43, 25, 13);
+		contentPane.add(mNameL);
+		
+		lastNameF = new JTextField();
+		lastNameF.setColumns(10);
+		lastNameF.setBounds(298, 24, 148, 19);
+		contentPane.add(lastNameF);
+		
+		JLabel lNameL = new JLabel("last");
+		lNameL.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lNameL.setBounds(364, 43, 25, 13);
+		contentPane.add(lNameL);
+		
+		phoneF = new JTextField();
+		phoneF.setBounds(124, 59, 158, 19);
+		contentPane.add(phoneF);
+		phoneF.setColumns(10);
+		
+		addressF = new JTextField();
+		addressF.setBounds(124, 104, 175, 19);
+		contentPane.add(addressF);
+		addressF.setColumns(10);
+		
+		JLabel streetL = new JLabel("Street Address");
+		streetL.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		streetL.setBounds(177, 125, 81, 13);
+		contentPane.add(streetL);
+		
+		aptF = new JTextField();
+		aptF.setColumns(10);
+		aptF.setBounds(307, 104, 42, 19);
+		contentPane.add(aptF);
+		
+		JLabel aptL = new JLabel("Apt #");
+		aptL.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		aptL.setBounds(317, 125, 32, 13);
+		contentPane.add(aptL);
+		
+		zipF = new JTextField();
+		zipF.setBounds(151, 148, 87, 19);
+		contentPane.add(zipF);
+		zipF.setColumns(10);
+		
+		cityF = new JTextField();
+		cityF.setBounds(151, 176, 96, 19);
+		contentPane.add(cityF);
+		cityF.setColumns(10);
+		
+		JComboBox stateCb = new JComboBox();
+		stateCb.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		stateCb.setBounds(151, 203, 73, 21);
+		contentPane.add(stateCb);
+		
+		cardNumF = new JTextField();
+		cardNumF.setBounds(117, 244, 108, 19);
+		contentPane.add(cardNumF);
+		cardNumF.setColumns(10);
+		
+		cardMonthF = new JTextField();
+		cardMonthF.setBounds(139, 272, 27, 19);
+		contentPane.add(cardMonthF);
+		cardMonthF.setColumns(10);
+		
+		JLabel cardMonthL = new JLabel("mm");
+		cardMonthL.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		cardMonthL.setBounds(144, 290, 23, 13);
+		contentPane.add(cardMonthL);
+		
+		JLabel lblExpiration_1 = new JLabel("/");
+		lblExpiration_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblExpiration_1.setBounds(168, 275, 6, 13);
+		contentPane.add(lblExpiration_1);
+		
+		cardDateF = new JTextField();
+		cardDateF.setColumns(10);
+		cardDateF.setBounds(176, 272, 27, 19);
+		contentPane.add(cardDateF);
+		
+		JLabel cardDateL = new JLabel("dd");
+		cardDateL.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		cardDateL.setBounds(183, 290, 23, 13);
+		contentPane.add(cardDateL);
+		
+		JLabel lblExpiration_1_1 = new JLabel("/");
+		lblExpiration_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblExpiration_1_1.setBounds(205, 275, 6, 13);
+		contentPane.add(lblExpiration_1_1);
+		
+		cardYearF = new JTextField();
+		cardYearF.setColumns(10);
+		cardYearF.setBounds(213, 273, 40, 19);
+		contentPane.add(cardYearF);
+		
+		JLabel cardYearL = new JLabel("yyyy");
+		cardYearL.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		cardYearL.setBounds(221, 290, 36, 13);
+		contentPane.add(cardYearL);
+		
+		cvvF = new JTextField();
+		cvvF.setBounds(139, 303, 47, 19);
 		contentPane.add(cvvF);
+		cvvF.setColumns(10);
 		
-		//
-		//  create a appleid Label
-		//
-		JLabel appleidL = new JLabel("Apple ID Email : ");
-		appleidL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		appleidL.setBounds(55, 300, 200, 23);
-		contentPane.add(appleidL);
+		appleIdF = new JTextField();
+		appleIdF.setBounds(126, 332, 121, 19);
+		contentPane.add(appleIdF);
+		appleIdF.setColumns(10);
 		
-		//
-		// field for appleid
-		//
-		JTextField appleidF = new JTextField();
-		appleidF.setEditable(true);
-		appleidF.setBounds(155, 305, 30, 15);
-		appleidF.setColumns(40);
-		contentPane.add(appleidF);
-		
-		//
-		// list of items that are being bought
-		//
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(763, 11, 168, 382);
-		textArea.setEditable(false);
-		contentPane.add(textArea);
-		
-		//
-		//  create a label for total price
-		//
-		JLabel lblNewLabel = new JLabel("    Total Price   $");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel.setBounds(697, 424, 200, 23);
-		contentPane.add(lblNewLabel);
-		
-		//
-		// field where total accumulating price is being displayed
-		//
-		JTextField textField = new JTextField();
-		textField.setEditable(false);
-		textField.setBounds(807, 420, 124, 34);
-		contentPane.add(textField);
-		textField.setColumns(10);
-		
-		//
-		//  create a label for status
-		//
-		JLabel statusLabel = new JLabel("Status : ");
-		statusLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		statusLabel.setBounds(30, 330, 100, 23);
-		contentPane.add(statusLabel);
-		
-		//
-		// field where to see status information
-		//
-		JTextField status = new JTextField();
-		status.setEditable(false);
-		status.setBounds(80, 330, 200, 34);
-		contentPane.add(status);
-		status.setColumns(40);
-		status.setBackground(Color.LIGHT_GRAY);
-		
-		//
-		// EXIT Button
-		//
-		JButton exit = new JButton("EXIT");
-		exit.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		exit.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent arg0)
-			{			
-                    //
-                    //close coupons :-(
-                    //
-				    dispose();
+		JButton exitBtn = new JButton("EXIT");
+		exitBtn.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		exitBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				setVisible(false);
 			}
-			
 		});
-		exit.setBounds(30, 400, 133, 34);
-		contentPane.add(exit);		
+		exitBtn.setBounds(22, 439, 133, 34);
+		contentPane.add(exitBtn);
 		
+		statusF = new JTextField();
+		statusF.setBackground(Color.LIGHT_GRAY);
+		statusF.setEditable(false);
+		statusF.setBounds(107, 375, 200, 34);
+		contentPane.add(statusF);
+		statusF.setColumns(10);
 		
-		
-		
-		//
-		// SUBMIT Button
-		//
-		JButton submit = new JButton("SUBMIT");
-		submit.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		submit.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent arg0)
-			{			
+		JButton submitBtn = new JButton("SUBMIT");
+		submitBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
 				String nameFieldStr = firstNameF.getText();
 				nameFieldStr        = nameFieldStr.trim();
 				
@@ -417,57 +289,45 @@ public class cart extends JFrame
 			                   "Food Truck Coupons",
 			                   JOptionPane.WARNING_MESSAGE);
 				}
-				
-				
-				
-			}
-		});
-		submit.setBounds(250, 400, 133, 34);
-		contentPane.add(submit);		
-		
-		
-		//
-		// HELP Button
-		//
-		JButton help = new JButton("HELP");
-		help.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		help.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent arg0)
-			{			
-                   
 			}
 			
 		});
-		help.setBounds(450, 400, 133, 34);
-		contentPane.add(help);		
+		submitBtn.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		submitBtn.setBounds(303, 439, 133, 34);
+		contentPane.add(submitBtn);
 		
-		//NOT IN USE
-		/*
-		//
-		//  create a label for appleid
-		//
-		JLabel idNumLabel = new JLabel("Enter your AppleID: ");
-		idNumLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		idNumLabel.setBounds(30, 525, 200, 23);
-		contentPane.add(idNumLabel);
+		JButton helpBtn = new JButton("HELP");
+		helpBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		helpBtn.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		helpBtn.setBounds(455, 439, 133, 34);
+		contentPane.add(helpBtn);
 		
-		//
-		// field where user puts in appleid
-		//
-		JTextField idNum = new JTextField();
-		idNum.setEditable(true);
-		idNum.setBounds(200, 525, 150, 34);
-		contentPane.add(idNum);
-		idNum.setColumns(20);
-		*/
+		JTextArea textArea = new JTextArea();
+		textArea.setEditable(false);
+		textArea.setBounds(660, 15, 286, 382);
+		contentPane.add(textArea);
 		
-		
+		totalF = new JTextField();
+		totalF.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		totalF.setText("$" + String.format("%.2f", total) + "\r\n");
+		totalF.setEditable(false);
+		totalF.setBounds(778, 407, 134, 34);
+		contentPane.add(totalF);
+		totalF.setColumns(10);
 		
 		// user will do the layout
 		contentPane.setLayout(null);
 		
 		// position frame in the middle of the screen
 		this.setLocationRelativeTo(null);
+	}
+	
+	public void setTotal(double val)
+	{
+		total = val;
+		totalF.setText("$" + String.format("%.2f", total) + "\r\n");
 	}
 }

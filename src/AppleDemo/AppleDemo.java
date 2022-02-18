@@ -26,7 +26,7 @@ public class AppleDemo extends JFrame
 	    * 
 	    */
  	    private static final long serialVersionUID = 1L;
- 	    
+ 	    cart coup = new cart();
 		/**
 		 * 
 		 */
@@ -37,6 +37,8 @@ public class AppleDemo extends JFrame
 		int    numOf13Pro   = 0;
 		int    numOf13 = 0;
 		int    numOf13ProMax  = 0;
+		// TODO: delete instance of cart if cartCount > 0 when user clicks cart btn
+		private static int cartCount = 0;
 		
 		String idNumStr=null;
 		
@@ -153,7 +155,7 @@ public class AppleDemo extends JFrame
 					numOf13++;
 					
 					textArea.append("iPhone 13 Mini         699\r\n");
-					total = total + 699;
+					updateTotal(total + 699);
 					
 					textField.setText(formatter.format(total));
 					textField.repaint();
@@ -178,7 +180,7 @@ public class AppleDemo extends JFrame
 					numOf13Mini++;
 					
 					textArea.append("iPhone 13          799\r\n");
-					total = total + 799;
+					updateTotal(total + 799);
 					
 					textField.setText(formatter.format(total));
 					textArea.repaint();
@@ -203,7 +205,7 @@ public class AppleDemo extends JFrame
 					numOf13Pro++;
 					
 					textArea.append("iPhone 13 Pro           999\r\n");
-					total = total + 999;
+					updateTotal(total + 999);
 					
 					textField.setText(formatter.format(total));
 					textArea.repaint();
@@ -230,7 +232,7 @@ public class AppleDemo extends JFrame
 					numOf13ProMax++;
 					
 					textArea.append("iPhone 13 Pro Max           1099\r\n");
-					total = total + 1099;
+					updateTotal(total + 1099);
 										
 					textField.setText(formatter.format(total));
 					textArea.repaint();
@@ -261,9 +263,19 @@ public class AppleDemo extends JFrame
 			cart.addActionListener(new ActionListener()
 			{
 				public void actionPerformed(ActionEvent e)
-				{
-					cart coup = new cart();
+				{		
+					coup.setTotal(total);
 					coup.setVisible(true);
+					cartCount++;
+					System.out.println("Ayy we got that shop up in here");
+					
+					coup.addWindowListener(new java.awt.event.WindowAdapter() {
+				        @Override
+				        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+				            cartCount--;
+				            System.out.println("sup buddy");
+				        }
+				    });
 				}
 			});
 			cart.setBounds(800, 570, 133, 34);
@@ -386,7 +398,7 @@ public class AppleDemo extends JFrame
 						   numOf13Pro   = 0;
 						   numOf13 = 0;
 						   numOf13ProMax  = 0;
-						   total = 0;
+						   updateTotal(0);
 				
 						   textArea.setText("");
 						   textField.setText("");
@@ -500,5 +512,14 @@ public class AppleDemo extends JFrame
 		  };
 
 	      refreshAllTitleBar.start();
+	    }
+	    
+	    void updateTotal(double val)
+	    {
+	    	total = val;
+	    	if(cartCount > 0)
+	    	{
+	    		coup.setTotal(val);
+	    	}
 	    }
 }

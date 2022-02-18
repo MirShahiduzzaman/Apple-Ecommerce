@@ -6,7 +6,7 @@
 # create a shopping cart page that saves all info
 # move appleid somewhere else
 # create a back button somewhere that goes back to a previous page but keeps all saved information
-#
-#
+# Include the login username in the home page. 
+# Include the login username in the cart. (i.e. "johndoe's cart)
 #
 #

@@ -9,3 +9,11 @@
 # Include the login username in the cart. (i.e. "johndoe's cart)
 # move main class from iphone page to home page once we receive home page
 #
+
+
+Server Side 
+<ul>
+  <li> Real Time Clock
+  <li> Quantity and Dollar Amount
+  <li> Most Asked Question
+</ul>

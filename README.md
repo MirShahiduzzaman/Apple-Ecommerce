@@ -17,3 +17,11 @@ Server Side
   <li> Quantity and Dollar Amount
   <li> Most Asked Question
 </ul>
+
+Help Center
+<ul>
+  <li> Create a list of questions for the help center (Combo Box)
+  <li> Create a list of responses for the help center.
+  <li> Count the number of people that ask a support question. 
+  <li> Find the most frequently asked question.
+</ul>

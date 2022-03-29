@@ -222,6 +222,7 @@ public class ServerSide {
 		else if((custSatisfF > 60.00) && (custSatisfF < 90.00))
 		{
 			CustSatisfactionFTF.setBackground(Color.yellow);
+		}
 		else
 		{
 			CustSatisfactionFTF.setBackground(Color.red);

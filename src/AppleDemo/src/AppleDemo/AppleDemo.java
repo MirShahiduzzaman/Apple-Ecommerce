@@ -27,6 +27,7 @@ public class AppleDemo extends JFrame
 	    */
  	    private static final long serialVersionUID = 1L;
  	    cart coup = new cart();
+ 	    ServerSide server = new ServerSide();
 		/**
 		 * 
 		 */
@@ -520,6 +521,15 @@ public class AppleDemo extends JFrame
 	    	if(cartCount > 0)
 	    	{
 	    		coup.setTotal(val);
+	    	}
+	    }
+	    
+	    void updateTotal2(double val)
+	    {
+	    	total = val;
+	    	if(cartCount > 0)
+	    	{
+	    		server.setTotal(val);
 	    	}
 	    }
 }

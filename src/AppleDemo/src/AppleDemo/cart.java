@@ -8,6 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+
+import AppleDemo.fileIO;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -40,6 +43,7 @@ public class cart extends JFrame {
 	private JTextField appleIdF;
 	private JTextField statusF;
 	private JTextField totalF;
+//	private String dataStr;
 
 	/**
 	 * Launch the application.
@@ -286,13 +290,50 @@ public class cart extends JFrame {
 				String nameFieldStr = firstNameF.getText();
 				nameFieldStr        = nameFieldStr.trim();
 				
-				if (nameFieldStr.length() == 0)
-				{
-					JOptionPane.showMessageDialog(null, 
+//				dataStr = "appleId" + ",firstName=" + firstNameF + ",midName=" + midNameF + ",lastName=" + lastNameF + 
+//						",phone=" + phoneF + ",address=" + addressF + ",apt=" + aptF + ",zip=" + zipF + 
+//						",city=" + cityF + ",cardNum=" + cardNumF + ",cardMonth=" + cardMonthF + ",cardDate=" + cardDateF + 
+//						",cardYear=" + cardYearF + ",cvv=" + cvvF;
+//				
+//				fileIO fio = new fileIO();
+//			
+//				
+//				fio.wrTransactionData(dataStr);
+				   
+			   AppleDemo.numOfItems = 0;
+				
+			   AppleDemo.numOf13Mini  = 0;
+			   AppleDemo.numOf13Pro   = 0;
+			   AppleDemo.numOf13 = 0;
+			   AppleDemo.numOf13ProMax  = 0;
+			   AppleDemo.updateTotal(0);
+			
+			   AppleDemo.textArea.setText("");
+			   AppleDemo.textField.setText("");
+			   
+			   firstNameF.setText("");
+			   midNameF.setText("");
+			   lastNameF.setText("");
+			   phoneF.setText("");
+			   addressF.setText("");
+			   aptF.setText("");
+			   zipF.setText("");
+			   cityF.setText("");
+			   cardNumF.setText("");
+			   cardMonthF.setText("");
+			   cardDateF.setText("");
+			   cardYearF.setText("");
+			   cvvF.setText("");
+			   appleIdF.setText("");
+			   statusF.setText("");
+				
+			   if (nameFieldStr.length() == 0)
+			   {
+				   JOptionPane.showMessageDialog(null, 
 			                   "ERROR!  Name field is empty!",
-			                   "Food Truck Coupons",
+			       "Food Truck Coupons",
 			                   JOptionPane.WARNING_MESSAGE);
-				}
+			   }
 			}
 			
 		});

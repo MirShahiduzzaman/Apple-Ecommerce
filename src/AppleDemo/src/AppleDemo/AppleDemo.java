@@ -4,6 +4,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+
+import ServerSide.ServerSide;
+
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
@@ -26,18 +29,20 @@ public class AppleDemo extends JFrame
 	    * 
 	    */
  	    private static final long serialVersionUID = 1L;
- 	    cart coup = new cart();
+ 	    private static cart coup = new cart();
  	    ServerSide server = new ServerSide();
 		/**
 		 * 
 		 */
-		double total        = 0.0;
-		int    numOfItems   = 0;
+ 	    public static double total        = 0.0;
+ 	    public static int    numOfItems   = 0;
 		
-		int    numOf13Mini  = 0;
-		int    numOf13Pro   = 0;
-		int    numOf13 = 0;
-		int    numOf13ProMax  = 0;
+ 	    public static int    numOf13Mini  = 0;
+ 	    public static int    numOf13Pro   = 0;
+ 	  	public static int    numOf13 = 0;
+ 	 	public static int    numOf13ProMax  = 0;
+ 	 	public static JTextArea textArea = new JTextArea();
+		public static JTextField textField = new JTextField();
 		// TODO: delete instance of cart if cartCount > 0 when user clicks cart btn
 		private static int cartCount = 0;
 		
@@ -125,7 +130,6 @@ public class AppleDemo extends JFrame
 			// WHERE ORIGINAL WHITE SHOPPING LIST BOX WAS
 			// list of items that are being bought
 			//
-			JTextArea textArea = new JTextArea();
 			//textArea.setBounds(550, 40, 168, 382);
 			//textArea.setBounds(763, 11, 168, 382);
 			textArea.setEditable(false);
@@ -136,7 +140,6 @@ public class AppleDemo extends JFrame
 			//
 			// field where total accumulating price is being displayed
 			//
-			JTextField textField = new JTextField();
 			textField.setEditable(false);
 			textField.setBounds(807, 525, 124, 34);
 			contentPane.add(textField);
@@ -515,7 +518,7 @@ public class AppleDemo extends JFrame
 	      refreshAllTitleBar.start();
 	    }
 	    
-	    void updateTotal(double val)
+	    public static void updateTotal(double val)
 	    {
 	    	total = val;
 	    	if(cartCount > 0)

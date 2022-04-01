@@ -1,4 +1,4 @@
-package AppleDemo;
+package ServerSide;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -11,20 +11,26 @@ import java.text.NumberFormat;
 
 import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
+
+import ServerSide.socketServer;
+
 import javax.swing.JFormattedTextField;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class ServerSide {
 
 	private JFrame frame;
-	private JTextField TransactionTF;
-	private JTextField iPhoneSoldTF;
-	private JTextField iPadSoldTF;
-	private JTextField MacBookSoldTF;
-	private JTextField AirPodSoldTF;
-	private JTextField TtlProductSoldTF;
-	private JTextField AppleCareTF;
-	private JTextField TtlProfitsTF;
-	private JTextField CustSupportTF;
+	public static JTextArea TransactionTA;
+	public static JTextArea textArea;
+	public static JTextField iPhoneSoldTF;
+	public static JTextField iPadSoldTF;
+	public static JTextField MacBookSoldTF;
+	public static JTextField AirPodSoldTF;
+	public static JTextField TtlProductSoldTF;
+	public static JTextField AppleCareTF;
+	public static JTextField TtlProfitsTF;
+	public static JTextField CustSupportTF;
 
 	/**
 	 * Launch the application.
@@ -68,11 +74,11 @@ public class ServerSide {
 		frame.getContentPane().add(OrdersL);
 		
 		//Transaction Log Text Field
-		TransactionTF = new JTextField();
-		TransactionTF.setEditable(false);
-		TransactionTF.setBounds(35, 70, 500, 650);
-		frame.getContentPane().add(TransactionTF);
-		TransactionTF.setColumns(10);
+		TransactionTA = new JTextArea();
+		TransactionTA.setEditable(false);
+		TransactionTA.setBounds(35, 70, 500, 650);
+		frame.getContentPane().add(TransactionTA);
+		TransactionTA.setColumns(10);
 		//*****************************************************************************************
 		
 		//Sales Analysis **************************************************************************
@@ -232,7 +238,40 @@ public class ServerSide {
 		}
 		
 		//*****************************************************************************************
+		startSockServer();
+		
+		
+		
+		
+		
+		//
+		// lights, camera, action
+		//
+		frame.getContentPane().setLayout(null);
+		
+		textArea = new JTextArea();
+		textArea.setBounds(600, 499, 313, 221);
+		frame.getContentPane().add(textArea);
+		
+//		this.setLocationRelativeTo(null);
+	
 	}
+	
+	/*
+	   * Thread to update weather info for NYC and Boston    
+	   */     
+	  private void startSockServer()
+	  {	
+		 Thread refreshWeatherThread = new Thread()
+		 {
+		    public void run()
+			  { 	
+				  socketServer.runSockServer();
+		      }
+		 };
+	
+	    refreshWeatherThread.start();
+	  }
 	
 	public void setTotal(double val)
 	{

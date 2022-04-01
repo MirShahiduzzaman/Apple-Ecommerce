@@ -12,10 +12,36 @@ import java.net.UnknownHostException;
 
 public class socketUtils 
 {
-    Socket 	clientSocket        =null;
+	Socket 	clientSocket        =null;
     DataOutputStream outToServer=null;
     BufferedReader inFromServer =null;
-
+    
+	public static void main(String[] args) 
+	{
+		socketUtils client = new socketUtils();
+		client.socketConnect();
+		
+		client.sendMessage("iphone 13: 3");
+		client.sendMessage("QUIT");
+//		sends this message to specified server using the ip specified in ipaddress variable in socketConnect function
+//		client.sendMessage("Hello from Apple again! :D");
+		
+//		client.sendMessage("Stock>TSLA");
+//		String str = client.recvMessage();
+//		String str2 = str.replaceAll(",", "\n");
+//		str2 = str2.replace("{", "{\n");
+//		str2 = str2.replace("}", "\n}");
+//		System.out.println(str2);
+		
+//		client.sendMessage("Date>");
+//		System.out.println(str2);
+//		
+//		client.sendMessage("QUIT");
+//		String date = client.recvMessage();
+//		System.out.println(date);
+		client.closeSocket();
+	}
+	
 	public boolean socketConnect()
 	{
 		String ipAddress, portString;
@@ -28,8 +54,7 @@ public class socketUtils
 	        if (file.exists())
 	        {
 	           BufferedReader br = new BufferedReader(new FileReader("config.txt"));
-	           
-             
+	            
                ipAddress  = br.readLine();
                portString = br.readLine();
                portNumber = Integer.parseInt(portString);
@@ -37,12 +62,10 @@ public class socketUtils
 	        }
 	        else
 	        {        
-	           ipAddress  = "localhost"; //127.0.0.1 and "localhost" aren't working
+	           ipAddress  = "192.168.1.7"; //"10.101.10.74";	//"localhost"; //127.0.0.1 and "localhost" aren't working
 	           portNumber = 3333;
 	        }
-	        
-	        
-  
+	          
            clientSocket  = new Socket(ipAddress, portNumber);
            
            outToServer   = new DataOutputStream(clientSocket.getOutputStream());
@@ -54,14 +77,17 @@ public class socketUtils
 		catch (ConnectException ex)
 		{
 			ex.printStackTrace();
+			return false;
 		}					
 		catch (UnknownHostException ex)
 	    {
 			ex.printStackTrace();
+			return false;
 	    }
 		catch (IOException ex) 
 	    {
 			ex.printStackTrace();
+			return false;
 	    }
 		
 		return rc;
@@ -109,7 +135,8 @@ public class socketUtils
 		try
 		{
 			clientSocket.close();
-                        rc=true;
+			
+            rc=true;
 		}
 		catch (IOException e)
 		{

@@ -29,6 +29,9 @@ public class ServerSide {
 	/**
 	 * Launch the application.
 	 */
+	
+	static double total = 0;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -229,5 +232,12 @@ public class ServerSide {
 		}
 		
 		//*****************************************************************************************
+	}
+	
+	public void setTotal(double val)
+	{
+		total = val;
+		iPhoneSoldTF.setText("$" + String.format("%.2f", total) + "\r\n");
+		TtlProfitsTF.setText("$" + String.format("%.2f", total) + "\r\n");
 	}
 }

@@ -97,10 +97,12 @@ public class cart extends JFrame {
 		cityL.setBounds(114, 177, 36, 13);
 		contentPane.add(cityL);
 		
+		/*
 		JLabel stateL = new JLabel("State:");
 		stateL.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		stateL.setBounds(105, 205, 42, 13);
 		contentPane.add(stateL);
+		*/
 		
 		JLabel cardNumL = new JLabel("Card Number:");
 		cardNumL.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -197,10 +199,12 @@ public class cart extends JFrame {
 		contentPane.add(cityF);
 		cityF.setColumns(10);
 		
+		/*
 		JComboBox stateCb = new JComboBox();
 		stateCb.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		stateCb.setBounds(151, 203, 73, 21);
 		contentPane.add(stateCb);
+		*/
 		
 		cardNumF = new JTextField();
 		cardNumF.setBounds(117, 244, 108, 19);

@@ -79,6 +79,17 @@ public class socketServer implements Runnable
 		     InetAddress ipAddress = InetAddress.getLocalHost();
 		     
 		     // TODO: add things to ServerSide to initialize
+		     ServerSide.iPhoneSoldTF.setText("0");
+		     ServerSide.iPadSoldTF.setText("0");
+		     ServerSide.AirPodSoldTF.setText("0");
+		     ServerSide.MacBookSoldTF.setText("0");
+		     
+		     ServerSide.TtlProductSoldTF.setText("0");
+		     ServerSide.TtlProfitsTF.setText("0");
+		     ServerSide.AppleCareTF.setText("0");
+		     
+		     ServerSide.CustSupportTF.setText("0");
+		     
 //		     ServerSide.iPhoneSoldTF.setText("hoho");
 //		     ServerSide.iPhoneSoldTF.setText("");
 		     // ServerSide.center.append("IP Address : " + ipAddress.getHostAddress() + newline);
@@ -454,6 +465,17 @@ public class socketServer implements Runnable
 	       
 	      PrintStream pstream = new PrintStream (csocket.getOutputStream());
 	      BufferedReader rstream = new BufferedReader(new InputStreamReader(csocket.getInputStream()));
+	      
+		  // Create an instance of SimpleDateFormat used for formatting 
+	      // the string representation of date (month/day/year)
+	      DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+	
+	      // Get the date today using Calendar object.
+	      Date today = Calendar.getInstance().getTime();
+	      	
+	      // Using DateFormat format method we can create a string 
+	      // representation of a date with the defined format.
+	      String reportDate = df.format(today);
 	       
 	      while (session_done == false)
 	      {
@@ -470,9 +492,17 @@ public class socketServer implements Runnable
 	              	      
 	              // TODO
 	              // update the status text area to show progress of program
-	              ServerSide.TransactionTA.append("RECV : " + clientString + newline);
+	              df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+
+	              // Get the date today using Calendar object.
+	              today = Calendar.getInstance().getTime();
+            	
+	              // Using DateFormat format method we can create a string 
+	              // representation of a date with the defined format.
+	              reportDate = df.format(today);
+	              ServerSide.TransactionTA.append("RECV : " + clientString + "\t" + reportDate + newline);
 //	   	          sss5jsw.center.append("RECV : " + clientString + newline);
-	     	      if(clientString.contains("iphone 13:"))
+	              if(clientString.contains("iphone 13:"))
 	     	      {
 	     	    	  try {
 		     	    	  ServerSide.iPhoneSoldTF.setText(Integer.toString(Integer.parseInt(clientString.substring(clientString.indexOf("iphone 13:") + 10).trim()) + Integer.parseInt(ServerSide.iPhoneSoldTF.getText())));
@@ -482,6 +512,7 @@ public class socketServer implements Runnable
 	     	    		  ServerSide.iPhoneSoldTF.setText(clientString.substring(clientString.indexOf("iphone 13:") + 10).trim());
 	     	    	  }
 	     	      }
+	     	      
 	              // TODO
 	     	      // update the status text area to show progress of program
 //	     	      sss5jsw.center.append("RLEN : " + clientString.length() + newline);
@@ -491,19 +522,19 @@ public class socketServer implements Runnable
 	           	   session_done = true;
 	           	   continue;
 	              }
-
+	             
 	              if (clientString.contains("quit"))
 	              {
 	                 session_done = true;
 	              }
 	              else if (clientString.contains("QUIT"))
 	              {
-	                 session_done = true;
-	              }
+		                 session_done = true;
+		          }
 	              else if (clientString.contains("Quit"))
 	              {
-	                 session_done = true;
-	              }
+		                 session_done = true;
+		          }
 	              else if (clientString.contains("Query>"))
 	              {
 	            	  String tokens[] = clientString.split("\\>");
@@ -556,14 +587,14 @@ public class socketServer implements Runnable
 	            	  
 	            	// Create an instance of SimpleDateFormat used for formatting 
 	            	// the string representation of date (month/day/year)
-	            	DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+	            	df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
 	            	// Get the date today using Calendar object.
-	            	Date today = Calendar.getInstance().getTime();
+	            	today = Calendar.getInstance().getTime();
 	            	
 	            	// Using DateFormat format method we can create a string 
 	            	// representation of a date with the defined format.
-	            	String reportDate = df.format(today);
+	            	reportDate = df.format(today);
 
 	            	//
 	            	// Print what date is today! Send to the individual THREAD
@@ -603,7 +634,7 @@ public class socketServer implements Runnable
 	        		}
 	        	}
 
-  	            //sss5.textArea_2.repaint();
+  	            ServerSide.textArea.repaint();
 	        }
 	      
 	        numOfConnections--;

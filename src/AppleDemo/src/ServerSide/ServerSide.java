@@ -5,9 +5,14 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Date;
 
 import javax.swing.JTextField;
 import javax.swing.text.NumberFormatter;
@@ -62,11 +67,19 @@ public class ServerSide {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+
+		//
+		// Frame title display current time
+		//
+		Date  date = new Date();
+		String str = String.format("%tc", date);
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1000, 800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		frame.setTitle(str);
 		//Transaction *****************************************************************************
 		JLabel OrdersL = new JLabel("Orders Placed: ");
 		OrdersL.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -253,9 +266,70 @@ public class ServerSide {
 		textArea.setBounds(600, 499, 313, 221);
 		frame.getContentPane().add(textArea);
 		
+		InetAddress localhost;
+		try {
+			localhost = InetAddress.getLocalHost();
+	        System.out.println("System IP Address : " +
+	                      (localhost.getHostAddress()).trim());
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		// 
+		// call thread to update date and time
+		//
+		refreshTitleBar();
 //		this.setLocationRelativeTo(null);
 	
 	}
+	
+	//
+    // Thread to update TITLE BAR, date, and time     
+    //     
+    private void refreshTitleBar()
+    {	
+	   Thread refreshAllTitleBar = new Thread()
+	   {
+		  public void run()
+		  { 
+			 while (true)
+			 {
+				 try 
+				 {
+				   //
+				   // display current time
+				   //
+				   Date  date = new Date();
+				   String str = String.format("%tc", date);
+              	   
+				   String titleString = "--- Apple Server --- " + str; 				 
+				   
+				   frame.setTitle(titleString);
+					 
+				   sleep(5000L);                   // sleep for 5 seconds or 5,000 milliseconds
+				   
+                 } // end try block
+			  
+		         catch (InterruptedException e) 
+		         {
+		        	 JOptionPane.showMessageDialog(null, 
+                              "ERROR. Interrupt Exception! Check Internet Connection!",
+                              "Title Top Bar",
+                              JOptionPane.WARNING_MESSAGE);
+		        	 
+		        	 continue;
+			     }
+		         finally
+		         {
+			   
+		         }
+			 } // end while true
+	     }
+	  };
+
+      refreshAllTitleBar.start();
+    }
 	
 	/*
 	   * Thread to update weather info for NYC and Boston    

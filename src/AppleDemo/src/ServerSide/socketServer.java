@@ -1,6 +1,5 @@
 package ServerSide;
 
-
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -9,6 +8,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.net.BindException;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.ServerSocket;
 import java.net.SocketException;
 import java.net.Socket;
@@ -46,23 +46,81 @@ public class socketServer implements Runnable
 	   static int numOfConnections = 0;
 	   static int numOfMessages = 0;
 	   static int max_connections = 5;
-	   static int numOfTransactions = 0; 
+	   static int numOfTransactions = 0;
+	   
+	   static boolean found = false;
+	   static String ipAddrOfSocketServer = null;
 
 	   socketServer(Socket csocket, String ip)
 	   {
 	      this.csocket  = csocket;
 	      this.ipString = ip;
 	   } 
-
+	   
+	   static void displayInterfaceInformation(NetworkInterface netint) throws SocketException 
+	    {	
+	    	String dname = netint.getName();
+	    	if (dname.startsWith("en") == true && found == false)
+	    	{
+	           Enumeration<InetAddress> inetAddresses = netint.getInetAddresses();
+	           
+	           int counter= 0;
+	           for (InetAddress inetAddress : Collections.list(inetAddresses))
+	           {   
+	        	   String myAddr = inetAddress.toString();
+	        	   myAddr = myAddr.replaceFirst("/", "");
+	        	   
+	        	   if (counter != 0)
+	        	   {
+	                    ipAddrOfSocketServer = myAddr;
+	                    found = true;
+	        	   }
+	        	   
+	        	   counter++;
+	           }
+	    	}
+	   }
+	   
+	   
 	   public static void runSockServer()   // throws Exception
 	   {
-	     boolean sessionDone = false;
-	  
+	     boolean sessionDone = false;	  
 	     ServerSocket ssock = null;
+ 
+	     Enumeration<NetworkInterface> nets = null;
+	     
+	     try {
+			InetAddress ip = InetAddress.getLocalHost();
+			ipAddrOfSocketServer = ip.getHostAddress();
+		} catch (UnknownHostException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	     
+		 try 
+		 {
+			nets = NetworkInterface.getNetworkInterfaces();
+		 }
+		 catch (SocketException e3)
+		 {
+			// TODO Auto-generated catch block
+			e3.printStackTrace(); 
+		 }
+		 
+	     for (NetworkInterface netint : Collections.list(nets))
+			try {
+				displayInterfaceInformation(netint);
+			} catch (SocketException e3) {
+				// TODO Auto-generated catch block
+				e3.printStackTrace();
+			}
+
 	   
 	     try
 	     {
-		   ssock = new ServerSocket(port_num);
+	       InetAddress addr = InetAddress.getByName(ipAddrOfSocketServer);
+	       
+		   ssock = new ServerSocket(port_num, 50, addr);
 	     }
 	     catch (BindException e)
 	     {
@@ -74,34 +132,12 @@ public class socketServer implements Runnable
 	     }
 	 
 	     // update the status text area to show progress of program
-	     try 
-	     {
-		     InetAddress ipAddress = InetAddress.getLocalHost();
+		 ServerSide.currIpTF.setText(ipAddrOfSocketServer);
 		     
-		     // TODO: add things to ServerSide to initialize
-		     ServerSide.iPhoneSoldTF.setText("0");
-		     ServerSide.iPadSoldTF.setText("0");
-		     ServerSide.AirPodSoldTF.setText("0");
-		     ServerSide.MacBookSoldTF.setText("0");
-		     
-		     ServerSide.TtlProductSoldTF.setText("0");
-		     ServerSide.TtlProfitsTF.setText("0");
-		     ServerSide.AppleCareTF.setText("0");
-		     
-		     ServerSide.CustSupportTF.setText("0");
-		     
-//		     ServerSide.iPhoneSoldTF.setText("hoho");
-//		     ServerSide.iPhoneSoldTF.setText("");
-		     // ServerSide.center.append("IP Address : " + ipAddress.getHostAddress() + newline);
-	     }
-	     catch (UnknownHostException e1)
-	     {
-		    // TODO Auto-generated catch block
-		    e1.printStackTrace();
-	     }
+		 ServerSide.TransactionTA.append(ipAddrOfSocketServer + newline);
+		 ServerSide.TransactionTA.append("Listening on port: " + Integer.toString(port_num) + newline);
 	 
-	     // TODO: Still add stuff
-//	     sss5jsw.center.append("Listening on port " + port_num + newline);
+	     ServerSide.portNumTF.setText(Integer.toString(port_num));
 	 
 	     //
 	     // initialize the hash table to the following keys or if file hash table data exists, then use it
@@ -163,7 +199,7 @@ public class socketServer implements Runnable
          	    
          	     
                  int currentSize     = clients.size();
-                 // TODO: Update total
+                 // Change this when we have a list of transactions shown in a separate window
 //         	     sss5jsw.right.setText("Total# : " + currentSize + newline);
          	    
          	     clients.put("totalKiosk", new apple("totalKiosk",
@@ -205,7 +241,6 @@ public class socketServer implements Runnable
          	     
          	     
          	     int currentSize     = clients.size();
-         	     // TODO: Replace this
 //        	     sss5jsw.right.setText("Total# : " + currentSize + newline);
         	     
          	     clients.put("totalKiosk", new apple("totalKiosk",
@@ -222,6 +257,8 @@ public class socketServer implements Runnable
          {   
      	    e2.printStackTrace(); 
          }		
+
+	     
 	     
 	     sessionDone = false;
 	     while (sessionDone == false)
@@ -240,9 +277,7 @@ public class socketServer implements Runnable
 		    }
 		 
 		    // update the status text area to show progress of program
-		    // TODO: Replace this
-//	        sss5jsw.center.append("Client Connected : " + sock.getInetAddress() + newline);
-		    ServerSide.TransactionTA.append("Client Connected : " + sock.getInetAddress() + newline);
+	        ServerSide.TransactionTA.append("Client Connected : " + sock.getInetAddress() + newline);
 	        
 	        //
 	        // start a NEW THREAD process
@@ -281,7 +316,7 @@ public class socketServer implements Runnable
 					long finish = System.nanoTime();
 					
 					long timeElapsed = finish - start;
-					// TODO: Replace this
+					// TODO: later, when we have the window with the thing
 //					sss5jsw.right.append(" Time Nano-Seconds : " + timeElapsed + newline);
 //					sss5jsw.right.append("Time Milli-Seconds : " + timeElapsed / 1000000 + newline);
 					
@@ -311,7 +346,8 @@ public class socketServer implements Runnable
 					long finish = System.nanoTime();
 					
 					long timeElapsed = finish - start;
-					// TODO: Replace this
+					// TODO: later, when we have the window with the thing
+
 //					sss5jsw.right.append(" Time Nano-Seconds : " + timeElapsed + newline);
 //					sss5jsw.right.append("Time Milli-Seconds : " + timeElapsed / 1000000 + newline);
 					
@@ -351,7 +387,7 @@ public class socketServer implements Runnable
 		nextKioskNumber = nextKioskNumber - 1;
 		kioskString     = "kiosk#" + String.format("%03d", nextKioskNumber);
 				
-		clients.put(kioskString, new apple(kioskString, 0, 0, 0.0, 0, 0, 0, 0));
+//		clients.put(kioskString, new kiosk(kioskString, 0, 0, 0.0, 0, 0, 0, 0));
 	}
 
 	//
@@ -415,14 +451,16 @@ public class socketServer implements Runnable
 
 	
 	//
-	// CLIENT THREAD CODE - This is the thread code that ALL clients will run()
+	// CLIENT THREAD CODE - This is the thread code that ALL Internet clients will run()
 	//
 	public void run()
 	{
+	   long threadId = 0;
+	   
 	   try
 	   {
-		  boolean session_done = false; 
-	      long threadId;
+		  int watchDog = 0;
+		  boolean session_done = false;
 	      String clientString;
 	      String keyString = "";
 	    
@@ -430,9 +468,7 @@ public class socketServer implements Runnable
 	      
 	      numOfConnections++;
 	      
-	      // TODO: Replace this
 	      ServerSide.TransactionTA.append("Num of Connections = " + numOfConnections + newline);
-//	      sss5jsw.center.append("Num of Connections = " + numOfConnections + newline);
 	      
 	      keyString = ipString + ":" + threadId;
 	      
@@ -444,20 +480,15 @@ public class socketServer implements Runnable
 	    	    int counter = 0;
 	        	vec.addElement(keyString);
 	        	
-	        	// TODO
-//	        	sss5jsw.bottom.setText("");
+	        	ServerSide.textArea.setText("");
 	        	Enumeration<String> en = vec.elements();
 	        	while (en.hasMoreElements())
 	        	{
-	        		// TODO
 	        		ServerSide.textArea.append(en.nextElement() + " || ");
-//	        		sss5jsw.bottom.append(en.nextElement() + " || ");
 	        		
 	        		if (++counter >= 6)
 	        		{
-	        			// TODO
 	        			ServerSide.textArea.append("\r\n");
-//	        			sss5jsw.bottom.append("\r\n");
 	        			counter = 0;
 	        		}
 	        	}
@@ -465,23 +496,14 @@ public class socketServer implements Runnable
 	       
 	      PrintStream pstream = new PrintStream (csocket.getOutputStream());
 	      BufferedReader rstream = new BufferedReader(new InputStreamReader(csocket.getInputStream()));
-	      
-		  // Create an instance of SimpleDateFormat used for formatting 
-	      // the string representation of date (month/day/year)
-	      DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-	
-	      // Get the date today using Calendar object.
-	      Date today = Calendar.getInstance().getTime();
-	      	
-	      // Using DateFormat format method we can create a string 
-	      // representation of a date with the defined format.
-	      String reportDate = df.format(today);
 	       
 	      while (session_done == false)
 	      {
-	       	if (rstream.ready())   // check for any data messages
-	       	{
+	          if (rstream.ready())   // check for any data messages
+	          {
 	              clientString = rstream.readLine();
+
+	              watchDog = 0;             // reset the watch counter back to zero
 	              
 	              //
 	              // write to transaction log
@@ -489,52 +511,31 @@ public class socketServer implements Runnable
 	              fileIO transLog = new fileIO();
 	              transLog.wrTransactionData("SERVER : " + clientString);
 	              
-	              	      
-	              // TODO
+	              	              
 	              // update the status text area to show progress of program
-	              df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-
-	              // Get the date today using Calendar object.
-	              today = Calendar.getInstance().getTime();
-            	
-	              // Using DateFormat format method we can create a string 
-	              // representation of a date with the defined format.
-	              reportDate = df.format(today);
-	              ServerSide.TransactionTA.append("RECV : " + clientString + "\t" + reportDate + newline);
-//	   	          sss5jsw.center.append("RECV : " + clientString + newline);
-	              if(clientString.contains("iphone 13:"))
-	     	      {
-	     	    	  try {
-		     	    	  ServerSide.iPhoneSoldTF.setText(Integer.toString(Integer.parseInt(clientString.substring(clientString.indexOf("iphone 13:") + 10).trim()) + Integer.parseInt(ServerSide.iPhoneSoldTF.getText())));
-	     	    	  }
-	     	    	  catch(Exception e)
-	     	    	  {
-	     	    		  ServerSide.iPhoneSoldTF.setText(clientString.substring(clientString.indexOf("iphone 13:") + 10).trim());
-	     	    	  }
-	     	      }
-	     	      
-	              // TODO
-	     	      // update the status text area to show progress of program
-//	     	      sss5jsw.center.append("RLEN : " + clientString.length() + newline);
+	              ServerSide.TransactionTA.append("RECV : " + clientString + newline);
+	     	       
+	     	       // update the status text area to show progress of program
+	              ServerSide.TransactionTA.append("RLEN : " + clientString.length() + newline);
 	              
 	              if (clientString.length() > 128)
 	              {
 	           	   session_done = true;
 	           	   continue;
 	              }
-	             
+
 	              if (clientString.contains("quit"))
 	              {
 	                 session_done = true;
 	              }
 	              else if (clientString.contains("QUIT"))
 	              {
-		                 session_done = true;
-		          }
+	                 session_done = true;
+	              }
 	              else if (clientString.contains("Quit"))
 	              {
-		                 session_done = true;
-		          }
+	                 session_done = true;
+	              }
 	              else if (clientString.contains("Query>"))
 	              {
 	            	  String tokens[] = clientString.split("\\>");
@@ -572,7 +573,8 @@ public class socketServer implements Runnable
 	            	  
 	            	  if (tokens.length == 2)
 	            	  {
-	            	     clients.put(tokens[1], new apple(tokens[1], 0, 0, 0.0, 0, 0, 0, 0));
+	            		  // TODO: implement apple ver of this
+//	            	     clients.put(tokens[1], new kiosk(tokens[1], 0, 0, 0.0, 0, 0, 0, 0));
 	            	     
 	            	     pstream.println("ACK");
 	            	  }
@@ -587,14 +589,14 @@ public class socketServer implements Runnable
 	            	  
 	            	// Create an instance of SimpleDateFormat used for formatting 
 	            	// the string representation of date (month/day/year)
-	            	df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+	            	DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
 	            	// Get the date today using Calendar object.
-	            	today = Calendar.getInstance().getTime();
+	            	Date today = Calendar.getInstance().getTime();
 	            	
 	            	// Using DateFormat format method we can create a string 
 	            	// representation of a date with the defined format.
-	            	reportDate = df.format(today);
+	            	String reportDate = df.format(today);
 
 	            	//
 	            	// Print what date is today! Send to the individual THREAD
@@ -608,8 +610,16 @@ public class socketServer implements Runnable
 	       	   }
 	         			    		        	
 	           Thread.sleep(500);
-	           
-	        }    // end while loop
+
+	           if (++watchDog >= 40)     // if not messages by this client in 40 seconds, then close connection
+	           {
+	        	   watchDog = 0;
+	        	   session_done = true;
+	           }
+	        }    // end WHILE LOOP - session_done
+	      
+	      
+	      
 	
             keyString = ipString + ":" + threadId;
 	      
@@ -618,23 +628,20 @@ public class socketServer implements Runnable
 	        	int counter = 0;
 	        	vec.removeElement(keyString);
 	        	
-	        	// TODO
-//	        	sss5jsw.left.setText("");
+	        	ServerSide.textArea.setText("");
 	        	Enumeration<String> en = vec.elements();
 	        	while (en.hasMoreElements())
-	        	{        	
-	        		// TODO
-//                  sss5jsw.left.append(en.nextElement() + " || ");
+	        	{        		     		
+	        		ServerSide.textArea.append(en.nextElement() + " || ");
 	        		
 	        		if (++counter >= 6)
 	        		{
-	        			// TODO
-//	        			sss5jsw.left.append("\r\n");
+	        			ServerSide.textArea.append("\r\n");
 	        			counter = 0;
 	        		}
 	        	}
 
-  	            ServerSide.textArea.repaint();
+	        	ServerSide.textArea.repaint();
 	        }
 	      
 	        numOfConnections--;
@@ -642,45 +649,79 @@ public class socketServer implements Runnable
 	        // close client socket
 	        csocket.close();
 	       
-	        // TODO
 	        // update the status text area to show progress of program
-//		    sss5jsw.center.append("Child Thread : " + threadId + " : is Exiting!!!" + newline);
-//		    sss5jsw.center.append("Num of Connections = " + numOfConnections);
+	        ServerSide.TransactionTA.append("Child Thread : " + threadId + " : is Exiting!!!" + newline);
+		     ServerSide.TransactionTA.append("Num of Connections = " + numOfConnections + newline);
 		     
+		     return;
 	     } // end try  
 	 
 	     catch (SocketException e)
 	     {
-	    	// TODO
-	    	// update the status text area to show progress of program
-//	      	sss5jsw.center.append("ERROR : Socket Exception!" + newline);
+		  // update the status text area to show progress of program
+	    	 ServerSide.TransactionTA.append("ERROR : Socket Exception!" + newline);
 	     }
 	     catch (InterruptedException e)
 	     {
-	    	 // TODO
 		  // update the status text area to show progress of program
-//	      sss5jsw.center.append("ERROR : Interrupted Exception!" + newline);
+	    	 ServerSide.TransactionTA.append("ERROR : Interrupted Exception!" + newline);
 	     }
 	     catch (UnknownHostException e)
 	     {
-	    	 // TODO
 		  // update the status text area to show progress of program
-//	      sss5jsw.center.append("ERROR : Unkonw Host Exception" + newline);
+	    	 ServerSide.TransactionTA.append("ERROR : Unkonw Host Exception" + newline);
 	     }
 	     catch (IOException e) 
 	     {
-	    	 // TODO
 	     // update the status text area to show progress of program
-//	      sss5jsw.center.append("ERROR : IO Exception!" + newline);
+	    	 ServerSide.TransactionTA.append("ERROR : IO Exception!" + newline);
 	     }     
 	     catch (Exception e)
 	     { 
 		  numOfConnections--;
 		  
-		  // TODO
 		  // update the status text area to show progress of program
-//	      sss5jsw.center.append("ERROR : Generic Exception!" + newline);
+		  ServerSide.TransactionTA.append("ERROR : Generic Exception!" + newline);
 	     }
 	   
+         String keyString = ipString + ":" + threadId;
+	      
+         if (vec.contains(keyString) == true)
+         {
+        	int counter = 0;
+        	vec.removeElement(keyString);
+        	
+    		ServerSide.textArea.setText("");
+        	Enumeration<String> en = vec.elements();
+        	while (en.hasMoreElements())
+        	{        		     		
+        		ServerSide.textArea.append(en.nextElement() + " || ");
+        		
+        		if (++counter >= 6)
+        		{
+        			ServerSide.textArea.append("\r\n");
+        			counter = 0;
+        		}
+        	}
+        	ServerSide.textArea.repaint();
+         }
+      
+         if (numOfConnections > 0)
+            numOfConnections--;
+
+         // close client socket
+         try 
+         { 
+			csocket.close();
+		 } 
+         catch (IOException e)
+         {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		 }
+       
+         // update the status text area to show progress of program
+	     ServerSide.TransactionTA.append("Num of Connections = " + numOfConnections + newline);
+	     
 	  }  // end run() thread method
 }

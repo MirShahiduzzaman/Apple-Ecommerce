@@ -62,7 +62,7 @@ public class socketUtils
 	        }
 	        else
 	        {        
-	           ipAddress  = "192.168.1.7"; //"10.101.10.74";	//"localhost"; //127.0.0.1 and "localhost" aren't working
+	           ipAddress  = "10.101.19.2"; //"10.101.10.74";	//"localhost"; //127.0.0.1 and "localhost" aren't working
 	           portNumber = 3333;
 	        }
 	          

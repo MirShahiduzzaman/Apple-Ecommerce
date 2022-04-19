@@ -36,6 +36,8 @@ public class ServerSide {
 	public static JTextField AppleCareTF;
 	public static JTextField TtlProfitsTF;
 	public static JTextField CustSupportTF;
+	public static JTextField currIpTF;
+	public static JTextField portNumTF;
 
 	/**
 	 * Launch the application.
@@ -265,6 +267,30 @@ public class ServerSide {
 		textArea = new JTextArea();
 		textArea.setBounds(600, 499, 313, 221);
 		frame.getContentPane().add(textArea);
+		
+		JLabel currIpL = new JLabel("Current IP:");
+		currIpL.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		currIpL.setBounds(35, 10, 71, 20);
+		frame.getContentPane().add(currIpL);
+		
+		currIpTF = new JTextField();
+		currIpTF.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		currIpTF.setEditable(false);
+		currIpTF.setColumns(10);
+		currIpTF.setBounds(108, 13, 95, 20);
+		frame.getContentPane().add(currIpTF);
+		
+		JLabel portNumL = new JLabel("Port Number:");
+		portNumL.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		portNumL.setBounds(266, 10, 95, 20);
+		frame.getContentPane().add(portNumL);
+		
+		portNumTF = new JTextField();
+		portNumTF.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		portNumTF.setEditable(false);
+		portNumTF.setColumns(10);
+		portNumTF.setBounds(354, 13, 95, 20);
+		frame.getContentPane().add(portNumTF);
 		
 		InetAddress localhost;
 		try {

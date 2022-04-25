@@ -22,7 +22,7 @@ public class socketUtils
 		client.socketConnect();
 		
 		client.sendMessage("iphone 13: 3");
-		client.sendMessage("QUIT");
+//		client.sendMessage("QUIT");
 //		sends this message to specified server using the ip specified in ipaddress variable in socketConnect function
 //		client.sendMessage("Hello from Apple again! :D");
 		
@@ -39,7 +39,7 @@ public class socketUtils
 //		client.sendMessage("QUIT");
 //		String date = client.recvMessage();
 //		System.out.println(date);
-		client.closeSocket();
+//		client.closeSocket();
 	}
 	
 	public boolean socketConnect()
@@ -62,7 +62,7 @@ public class socketUtils
 	        }
 	        else
 	        {        
-	           ipAddress  = "10.101.19.2"; //"10.101.10.74";	//"localhost"; //127.0.0.1 and "localhost" aren't working
+	           ipAddress  = "192.168.211.1";//"10.88.33.91"; //"10.101.10.74";	//"localhost"; //127.0.0.1 and "localhost" aren't working
 	           portNumber = 3333;
 	        }
 	          

@@ -119,3 +119,10 @@
 04-08-2022 14.08.32 : SERVER : iphone 13: 3
 04-08-2022 14.08.33 : SERVER : QUIT
 04-19-2022 14.10.49 : SERVER : My cat flew, twice!
+04-19-2022 18.03.22 : SERVER : iphone 13: 3
+04-19-2022 18.03.23 : SERVER : QUIT
+04-22-2022 13.35.48 : SERVER : My cat flew, twice!
+04-22-2022 13.58.17 : SERVER : My cat flew, twice!
+04-22-2022 13.58.37 : SERVER : My cat flew, !
+04-22-2022 13.59.32 : SERVER : My cat flew, !
+04-22-2022 14.00.14 : SERVER : iphone 13: 3

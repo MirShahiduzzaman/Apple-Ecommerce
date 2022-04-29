@@ -3,9 +3,13 @@ package ServerSide;
 import java.awt.Color;
 import java.awt.EventQueue;
 
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.text.NumberFormatter;
 
 import java.awt.Font;
 import java.net.InetAddress;
@@ -14,14 +18,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Date;
 
-import javax.swing.JTextField;
-import javax.swing.text.NumberFormatter;
-
 import ServerSide.socketServer;
-
-import javax.swing.JFormattedTextField;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 public class ServerSide {
 

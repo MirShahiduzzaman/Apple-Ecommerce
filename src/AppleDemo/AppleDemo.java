@@ -169,7 +169,7 @@ public class AppleDemo extends JFrame
 				}
 			});
 					
-			btnNewButton.setIcon(new ImageIcon("https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-mini-blue-select-2021?wid=470&hei=556&fmt=jpeg&qlt=95&.v=1629842711000"));
+			btnNewButton.setIcon(new ImageIcon("./images/iphone13mini.jpg"));
 			btnNewButton.setBounds(200, 41, 231, 200);
 			contentPane.add(btnNewButton);
 
@@ -193,7 +193,7 @@ public class AppleDemo extends JFrame
 					status.setBackground(Color.LIGHT_GRAY);
 				}
 			});
-			btnNewButton_1.setIcon(new ImageIcon("./images/iphone13.png"));
+			btnNewButton_1.setIcon(new ImageIcon("./images/iphone13.jpg"));
 			btnNewButton_1.setBounds(200, 290, 231, 200);
 			contentPane.add(btnNewButton_1);
 

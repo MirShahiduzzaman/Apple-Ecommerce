@@ -160,27 +160,6 @@ public class ServerSide extends JFrame
 		
 		
 		
-		// 
-		// List Kiosk Button
-		//
-		JButton listKiosks = new JButton("LIST KIOSKS");
-		listKiosks.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		listKiosks.addActionListener(new ActionListener()
-		{
-			@Override
-			public void actionPerformed(ActionEvent e) 
-			{
-				JOptionPane.showMessageDialog(null, 
-		                   socketServer.getAllTransactions(),
-		                   "Food Truck",
-		                   JOptionPane.INFORMATION_MESSAGE);
-				
-			}
-		});
-		listKiosks.setBounds(150, 620, 133, 30);;
-		contentPane.add(listKiosks);
-		
-		
 		
 		
 		

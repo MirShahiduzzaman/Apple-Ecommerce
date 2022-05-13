@@ -32,6 +32,11 @@ public class socketServer implements Runnable
 	   Socket csocket;
 	   String ipString;
 	   char threadType;
+	   static String data = "mini = 0\n"
+	   		+ "pro = 0\n"
+	   		+ "regular = 0\n"
+	   		+ "pro max = 0\n"
+	   		+ "total = 0";
 
 	   static Vector<String> vec = new Vector<String>(5);
 	   
@@ -46,7 +51,7 @@ public class socketServer implements Runnable
 	   static int numOfConnections = 0;
 	   static int numOfMessages = 0;
 	   static int max_connections = 5;
-	   static int numOfTransactions = 0; 
+	   static int numOfTransactions = 0;
 
 	   socketServer(Socket csocket, String ip)
 	   {
@@ -74,6 +79,7 @@ public class socketServer implements Runnable
 	     }
 	 
 	     // update the status text area to show progress of program
+	     ServerSide.right.setText("Num of Transactions = " + numOfTransactions);
 	     try 
 	     {
 		     InetAddress ipAddress = InetAddress.getLocalHost();
@@ -147,7 +153,7 @@ public class socketServer implements Runnable
          	    
          	     
                  int currentSize     = clients.size();
-         	     ServerSide.right.setText("Total# : " + currentSize + newline);
+//         	     ServerSide.right.setText("Total# : " + currentSize + newline);
          	    
          	     clients.put("totalapple", new apple("totalapple",
 		    	               transCount,
@@ -188,7 +194,7 @@ public class socketServer implements Runnable
          	     
          	     
          	     int currentSize     = clients.size();
-        	     ServerSide.right.setText("Total# : " + currentSize + newline);
+//        	     ServerSide.right.setText("Total# : " + currentSize + newline);
         	     
          	     clients.put("totalapple", new apple("totalapple",
 		    	               transCount,
@@ -203,7 +209,7 @@ public class socketServer implements Runnable
          catch(Exception e2)
          {   
      	    e2.printStackTrace(); 
-         }		
+         }
 	     
 	     sessionDone = false;
 	     while (sessionDone == false)
@@ -261,8 +267,8 @@ public class socketServer implements Runnable
 					long finish = System.nanoTime();
 					
 					long timeElapsed = finish - start;
-					ServerSide.right.append(" Time Nano-Seconds : " + timeElapsed + newline);
-					ServerSide.right.append("Time Milli-Seconds : " + timeElapsed / 1000000 + newline);
+//					ServerSide.right.append(" Time Nano-Seconds : " + timeElapsed + newline);
+//					ServerSide.right.append("Time Milli-Seconds : " + timeElapsed / 1000000 + newline);
 					
 					if (clients.containsKey("totalapple") == true)
 					{
@@ -290,8 +296,8 @@ public class socketServer implements Runnable
 					long finish = System.nanoTime();
 					
 					long timeElapsed = finish - start;
-					ServerSide.right.append(" Time Nano-Seconds : " + timeElapsed + newline);
-					ServerSide.right.append("Time Milli-Seconds : " + timeElapsed / 1000000 + newline);
+//					ServerSide.right.append(" Time Nano-Seconds : " + timeElapsed + newline);
+//					ServerSide.right.append("Time Milli-Seconds : " + timeElapsed / 1000000 + newline);
 					
 					if (clients.containsKey("totalapple") == true)
 					{
@@ -407,7 +413,10 @@ public class socketServer implements Runnable
 	      threadId = Thread.currentThread().getId();
 	      
 	      numOfConnections++;
-	      
+	      numOfTransactions++;
+
+
+	      ServerSide.right.setText("Num of Transactions = " + numOfTransactions);
 	      ServerSide.center.append("Num of Connections = " + numOfConnections + newline);
 	      
 	      keyString = ipString + ":" + threadId;
@@ -453,27 +462,71 @@ public class socketServer implements Runnable
 	              	              
 	              // update the status text area to show progress of program
 	   	           ServerSide.center.append("RECV : " + clientString + newline);
+	   	           
+//	   	           int dataidx = 0;
+//	   	           int otheridx = 0;
+//	   	           String str = "mini = ";
+//	   	           int idx = clientString.indexOf(str) + str.length();
+//	   	           int endidx = clientString.substring(0, idx).length() + clientString.substring(idx).indexOf(" ");
+//	   	           if(idx != -1)
+//	   	           {
+////	   	     	   static String data = "mini = 0\n"
+////	   	    	   		+ "pro = 0\n"
+////	   	    	   		+ "regular = 0\n"
+////	   	    	   		+ "pro max = 0\n"
+////	   	    	   		+ "total = 0";
+////	   	        	   dataidx = data.indexOf(str) + str.length();
+////	   	        	   otheridx = data.substring(0, dataidx).length() + data.substring(dataidx).indexOf("\n");
+////	   	        	   data = data.substring(0, dataidx) + (Integer.parseInt(data.substring(dataidx, otheridx) + Integer.parseInt(clientString.substring(idx, endidx))) + data.substring(otheridx));
+//	   	        	   
+//	   	
+//	   	           }
+	   	           
+//	   	           idx = clientString.indexOf("pro=");
+//	   	           if(idx != -1)
+//	   	           {
+//	   	        	dataidx = data.indexOf("iphone13pro = ");
+//	   	           }
+//	   	           
+//	   	           idx = clientString.indexOf("regular=");
+//	   	           if(idx != -1)
+//	   	           {
+//	   	        	dataidx = data.indexOf("iphone13 = ");
+//	   	           }
+//	   	           
+//	   	           idx = clientString.indexOf("pro max=");
+//	   	           if(idx != -1)
+//	   	           {
+//	   	        	dataidx = data.indexOf("iphone13promax = ");
+//	   	           }
 	     	       
+	   	           
+	   	           
 	     	       // update the status text area to show progress of program
 	     	       ServerSide.center.append("RLEN : " + clientString.length() + newline);
+	     	       
+//	     	      ServerSide.right.append(clientString);
 	              
 	              if (clientString.length() > 128)
 	              {
-	           	   session_done = true;
-	           	   continue;
+	            	  session_done = true;
+	            	  continue;
 	              }
 
 	              if (clientString.contains("quit"))
 	              {
 	                 session_done = true;
+	                 numOfTransactions--;
 	              }
 	              else if (clientString.contains("QUIT"))
 	              {
 	                 session_done = true;
+	                 numOfTransactions--;
 	              }
 	              else if (clientString.contains("Quit"))
 	              {
 	                 session_done = true;
+	                 numOfTransactions--;
 	              }
 	              else if (clientString.contains("Query>"))
 	              {

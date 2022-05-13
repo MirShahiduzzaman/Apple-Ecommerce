@@ -18,3 +18,60 @@
 05-13-2022 10.28.57 : SERVER : Stock>AAPL
 05-13-2022 10.28.58 : SERVER : QUIT>
 05-13-2022 10.28.58 : SERVER : QUIT>
+05-13-2022 11.20.06 : SERVER : Date>
+05-13-2022 11.20.06 : SERVER : Stock>AAPL
+05-13-2022 11.20.07 : SERVER : QUIT>
+05-13-2022 11.21.07 : SERVER : mini=1 pro=1 regular=1 pro max=1 
+05-13-2022 11.32.42 : SERVER : mini=4 pro=4 regular=4 pro max=4 
+05-13-2022 11.32.43 : SERVER : QUIT>
+05-13-2022 11.41.29 : SERVER : mini=4 pro=1 regular=3 pro max=2 total=7690.0 
+05-13-2022 11.41.29 : SERVER : QUIT>
+05-13-2022 11.41.58 : SERVER : mini=3 pro=2 regular=1 pro max=4 total=7890.0 
+05-13-2022 11.43.23 : SERVER : Date>
+05-13-2022 11.43.24 : SERVER : Stock>AAPL
+05-13-2022 11.43.24 : SERVER : QUIT>
+05-13-2022 11.44.26 : SERVER : Date>
+05-13-2022 11.44.26 : SERVER : Stock>AAPL
+05-13-2022 11.44.27 : SERVER : QUIT>
+05-13-2022 11.44.53 : SERVER : mini=4 pro=1 regular=2 pro max=3 total=7690.0 
+05-13-2022 11.47.31 : SERVER : pro=2 total=1998.0 
+05-13-2022 11.47.31 : SERVER : QUIT>
+05-13-2022 11.47.38 : SERVER : pro=1 total=999.0 
+05-13-2022 11.47.39 : SERVER : QUIT>
+05-13-2022 11.47.48 : SERVER : pro max=1 total=699.0 
+05-13-2022 11.47.49 : SERVER : QUIT>
+05-13-2022 12.09.48 : SERVER : pro=1 pro max=1 total=1698.0 
+05-13-2022 12.09.49 : SERVER : QUIT>
+05-13-2022 12.11.11 : SERVER : mini=1 pro=1 regular=1 pro max=1 total=3196.0 
+05-13-2022 12.11.11 : SERVER : QUIT>
+05-13-2022 12.40.27 : SERVER : pro = 1 regular = 1 total=1698.0 
+05-13-2022 12.40.27 : SERVER : QUIT>
+05-13-2022 12.41.06 : SERVER : pro = 1 regular = 1 total=1698.0 
+05-13-2022 12.41.06 : SERVER : QUIT>
+05-13-2022 12.41.22 : SERVER : regular = 1 total=699.0 
+05-13-2022 12.41.23 : SERVER : QUIT>
+05-13-2022 12.41.46 : SERVER : regular = 1 total=699.0 
+05-13-2022 12.41.46 : SERVER : QUIT>
+05-13-2022 12.42.48 : SERVER : regular = 1 total=699.0 
+05-13-2022 12.42.49 : SERVER : QUIT>
+05-13-2022 12.43.13 : SERVER : regular = 1 total=699.0 
+05-13-2022 12.43.13 : SERVER : QUIT>
+05-13-2022 12.46.34 : SERVER : mini = 1 pro = 2 regular = 3 pro max = 4 total=7890.0 
+05-13-2022 12.46.34 : SERVER : QUIT>
+05-13-2022 12.48.20 : SERVER : mini = 1 total=699.0 
+05-13-2022 12.48.21 : SERVER : QUIT>
+05-13-2022 12.48.39 : SERVER : mini = 1 total=699.0 
+05-13-2022 12.48.40 : SERVER : QUIT>
+05-13-2022 12.53.22 : SERVER : mini = 1 total=699.0 
+05-13-2022 12.53.22 : SERVER : QUIT>
+05-13-2022 12.53.53 : SERVER : mini = 1 total=699.0 
+05-13-2022 12.53.54 : SERVER : QUIT>
+05-13-2022 12.56.01 : SERVER : mini = 1 pro = 2 regular = 3 pro max = 4 total=7890.0 
+05-13-2022 12.56.01 : SERVER : QUIT>
+05-13-2022 12.57.03 : SERVER : mini = 1 pro = 2 regular = 3 pro max = 4 total=7890.0 
+05-13-2022 12.57.04 : SERVER : QUIT>
+05-13-2022 12.58.38 : SERVER : mini = 1 pro = 1 regular = 1 pro max = 1 total=3196.0 
+05-13-2022 12.58.38 : SERVER : QUIT>
+05-13-2022 13.01.41 : SERVER : mini = 1 pro = 1 regular = 1 pro max = 1 total=3196.0 
+05-13-2022 13.01.41 : SERVER : QUIT>
+05-13-2022 13.01.51 : SERVER : mini = 1 pro = 1 regular = 1 pro max = 1 total=3196.0 

@@ -67,10 +67,10 @@ public class cart extends JFrame {
 		});
 	}
 
-	static double total = 0;
+	public static double total = 0;
 	static Hashtable<String, Double> items = new Hashtable<String, Double>();
 	static Hashtable<String, Integer> counts = new Hashtable <String, Integer>();
-	
+	static SocketUtils su = new SocketUtils();
 	
 	
 	/**
@@ -313,106 +313,136 @@ public class cart extends JFrame {
 //				
 //				fio.wrTransactionData(dataStr);
 				   
-			   if (textArea.getText().trim().length() == 0)
-			   {
-				   JOptionPane.showMessageDialog(null, 
-			                   "ERROR!  No items in shopping cart!",
-			       "Apple Shopping Cart",
-			                   JOptionPane.WARNING_MESSAGE);
-			   }
-			   else if (firstNameF.getText().trim().length() == 0)
-			   {
-				   JOptionPane.showMessageDialog(null, 
-			                   "ERROR!  First Name field is empty!",
-			       "Apple Shopping Cart",
-			                   JOptionPane.WARNING_MESSAGE);
-			   }
-			   else if (lastNameF.getText().trim().length() == 0)
-			   {
-				   JOptionPane.showMessageDialog(null, 
-			                   "ERROR!  Last Name field is empty!",
-			       "Apple Shopping Cart",
-			                   JOptionPane.WARNING_MESSAGE);
-			   }
-			   else if (phoneF.getText().trim().length() == 0)
-			   {
-				   JOptionPane.showMessageDialog(null, 
-			                   "ERROR!  Phone Number field is empty!",
-			       "Apple Shopping Cart",
-			                   JOptionPane.WARNING_MESSAGE);
-			   }
-			   else if (addressF.getText().trim().length() == 0)
-			   {
-				   JOptionPane.showMessageDialog(null, 
-			                   "ERROR!  Address field is empty!",
-			       "Apple Shopping Cart",
-			                   JOptionPane.WARNING_MESSAGE);
-			   }
-			   else if (aptF.getText().trim().length() == 0)
-			   {
-				   JOptionPane.showMessageDialog(null, 
-			                   "ERROR!  Apt field is empty!",
-			       "Apple Shopping Cart",
-			                   JOptionPane.WARNING_MESSAGE);
-			   }
-			   else if (zipF.getText().trim().length() == 0)
-			   {
-				   JOptionPane.showMessageDialog(null, 
-			                   "ERROR!  Zip Code field is empty!",
-			       "Apple Shopping Cart",
-			                   JOptionPane.WARNING_MESSAGE);
-			   }
-			   else if (cityF.getText().trim().length() == 0)
-			   {
-				   JOptionPane.showMessageDialog(null, 
-			                   "ERROR!  City field is empty!",
-			       "Apple Shopping Cart",
-			                   JOptionPane.WARNING_MESSAGE);
-			   }
-			   else if (cardNumF.getText().trim().length() == 0)
-			   {
-				   JOptionPane.showMessageDialog(null, 
-			                   "ERROR!  Card Number field is empty!",
-			       "Apple Shopping Cart",
-			                   JOptionPane.WARNING_MESSAGE);
-			   }
-			   else if (cardMonthF.getText().trim().length() == 0)
-			   {
-				   JOptionPane.showMessageDialog(null, 
-			                   "ERROR!  Card Month field is empty!",
-			       "Apple Shopping Cart",
-			                   JOptionPane.WARNING_MESSAGE);
-			   }
-			   else if (cardDateF.getText().trim().length() == 0)
-			   {
-				   JOptionPane.showMessageDialog(null, 
-			                   "ERROR!  Card Date field is empty!",
-			       "Apple Shopping Cart",
-			                   JOptionPane.WARNING_MESSAGE);
-			   }
-			   else if (cardYearF.getText().trim().length() == 0)
-			   {
-				   JOptionPane.showMessageDialog(null, 
-			                   "ERROR!  Card Year field is empty!",
-			       "Apple Shopping Cart",
-			                   JOptionPane.WARNING_MESSAGE);
-			   }
-			   else if (cvvF.getText().trim().length() == 0)
-			   {
-				   JOptionPane.showMessageDialog(null, 
-			                   "ERROR!  CVV field is empty!",
-			       "Apple Shopping Cart",
-			                   JOptionPane.WARNING_MESSAGE);
-			   }
-			   else if (appleIdF.getText().trim().length() == 0)
-			   {
-				   JOptionPane.showMessageDialog(null, 
-			                   "ERROR!  Apple ID field is empty!",
-			       "Apple Shopping Cart",
-			                   JOptionPane.WARNING_MESSAGE);
-			   }
-			   else
-			   {
+//			   if (textArea.getText().trim().length() == 0)
+//			   {
+//				   JOptionPane.showMessageDialog(null, 
+//			                   "ERROR!  No items in shopping cart!",
+//			       "Apple Shopping Cart",
+//			                   JOptionPane.WARNING_MESSAGE);
+//			   }
+//			   else if (firstNameF.getText().trim().length() == 0)
+//			   {
+//				   JOptionPane.showMessageDialog(null, 
+//			                   "ERROR!  First Name field is empty!",
+//			       "Apple Shopping Cart",
+//			                   JOptionPane.WARNING_MESSAGE);
+//			   }
+//			   else if (lastNameF.getText().trim().length() == 0)
+//			   {
+//				   JOptionPane.showMessageDialog(null, 
+//			                   "ERROR!  Last Name field is empty!",
+//			       "Apple Shopping Cart",
+//			                   JOptionPane.WARNING_MESSAGE);
+//			   }
+//			   else if (phoneF.getText().trim().length() == 0)
+//			   {
+//				   JOptionPane.showMessageDialog(null, 
+//			                   "ERROR!  Phone Number field is empty!",
+//			       "Apple Shopping Cart",
+//			                   JOptionPane.WARNING_MESSAGE);
+//			   }
+//			   else if (addressF.getText().trim().length() == 0)
+//			   {
+//				   JOptionPane.showMessageDialog(null, 
+//			                   "ERROR!  Address field is empty!",
+//			       "Apple Shopping Cart",
+//			                   JOptionPane.WARNING_MESSAGE);
+//			   }
+//			   else if (aptF.getText().trim().length() == 0)
+//			   {
+//				   JOptionPane.showMessageDialog(null, 
+//			                   "ERROR!  Apt field is empty!",
+//			       "Apple Shopping Cart",
+//			                   JOptionPane.WARNING_MESSAGE);
+//			   }
+//			   else if (zipF.getText().trim().length() == 0)
+//			   {
+//				   JOptionPane.showMessageDialog(null, 
+//			                   "ERROR!  Zip Code field is empty!",
+//			       "Apple Shopping Cart",
+//			                   JOptionPane.WARNING_MESSAGE);
+//			   }
+//			   else if (cityF.getText().trim().length() == 0)
+//			   {
+//				   JOptionPane.showMessageDialog(null, 
+//			                   "ERROR!  City field is empty!",
+//			       "Apple Shopping Cart",
+//			                   JOptionPane.WARNING_MESSAGE);
+//			   }
+//			   else if (cardNumF.getText().trim().length() == 0)
+//			   {
+//				   JOptionPane.showMessageDialog(null, 
+//			                   "ERROR!  Card Number field is empty!",
+//			       "Apple Shopping Cart",
+//			                   JOptionPane.WARNING_MESSAGE);
+//			   }
+//			   else if (cardMonthF.getText().trim().length() == 0)
+//			   {
+//				   JOptionPane.showMessageDialog(null, 
+//			                   "ERROR!  Card Month field is empty!",
+//			       "Apple Shopping Cart",
+//			                   JOptionPane.WARNING_MESSAGE);
+//			   }
+//			   else if (cardDateF.getText().trim().length() == 0)
+//			   {
+//				   JOptionPane.showMessageDialog(null, 
+//			                   "ERROR!  Card Date field is empty!",
+//			       "Apple Shopping Cart",
+//			                   JOptionPane.WARNING_MESSAGE);
+//			   }
+//			   else if (cardYearF.getText().trim().length() == 0)
+//			   {
+//				   JOptionPane.showMessageDialog(null, 
+//			                   "ERROR!  Card Year field is empty!",
+//			       "Apple Shopping Cart",
+//			                   JOptionPane.WARNING_MESSAGE);
+//			   }
+//			   else if (cvvF.getText().trim().length() == 0)
+//			   {
+//				   JOptionPane.showMessageDialog(null, 
+//			                   "ERROR!  CVV field is empty!",
+//			       "Apple Shopping Cart",
+//			                   JOptionPane.WARNING_MESSAGE);
+//			   }
+//			   else if (appleIdF.getText().trim().length() == 0)
+//			   {
+//				   JOptionPane.showMessageDialog(null, 
+//			                   "ERROR!  Apple ID field is empty!",
+//			       "Apple Shopping Cart",
+//			                   JOptionPane.WARNING_MESSAGE);
+//			   }
+//			   else
+//			   {
+
+				   
+					if (su.socketConnect() == true)
+					{
+						String s = "";
+						if(AppleDemo.numOf13Mini  != 0)
+						{
+							s += "mini = " + AppleDemo.numOf13Mini + " ";
+						}
+						if(AppleDemo.numOf13Pro != 0)
+						{
+							s += "pro = " + AppleDemo.numOf13Pro + " ";
+						}
+						if(AppleDemo.numOf13 != 0)
+						{
+							s += "regular = " + AppleDemo.numOf13 + " ";
+						}
+						if(AppleDemo.numOf13ProMax  != 0)
+						{
+							s += "pro max = " + AppleDemo.numOf13ProMax + " ";
+						}
+						s += "total=" + total + " ";
+						su.sendMessage(s);
+						
+						s = "QUIT>";
+						su.sendMessage(s);
+						
+						su.closeSocket();
+					}
+					
 				   AppleDemo.numOfItems = 0;
 					
 				   AppleDemo.numOf13Mini  = 0;
@@ -440,7 +470,8 @@ public class cart extends JFrame {
 				   appleIdF.setText("");
 				   statusF.setText("");
 				   clearList();
-			   }
+//			   }
+		   
 			}
 			
 		});

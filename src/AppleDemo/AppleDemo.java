@@ -156,7 +156,7 @@ public class AppleDemo extends JFrame
 				public void actionPerformed(ActionEvent e)
 				{
 					numOfItems++;
-					numOf13++;
+					numOf13Mini++;
 					
 //					if(cartCount > 0)
 //					{
@@ -184,7 +184,7 @@ public class AppleDemo extends JFrame
 				public void actionPerformed(ActionEvent e) 
 				{
 					numOfItems++;
-					numOf13Mini++;
+					numOf13++;
 					
 						coup.appendItem("iphone13", 799);
 					total += 799;
@@ -276,13 +276,13 @@ public class AppleDemo extends JFrame
 					coup.setTotal(total);
 					coup.setVisible(true);
 					cartCount++;
-					System.out.println("Ayy we got that shop up in here");
+//					System.out.println("Ayy we got that shop up in here");
 					
 					coup.addWindowListener(new java.awt.event.WindowAdapter() {
 				        @Override
 				        public void windowClosed(java.awt.event.WindowEvent windowEvent) {
 				            cartCount--;
-				            System.out.println("sup buddy");
+//				            System.out.println("sup buddy");
 				        }
 				    });
 				}
@@ -400,7 +400,7 @@ public class AppleDemo extends JFrame
 
 				
                         if (result == JOptionPane.OK_OPTION)
-                        {   
+                        {
                     	   numOfItems = 0;
  						
 						   numOf13Mini  = 0;
@@ -411,6 +411,8 @@ public class AppleDemo extends JFrame
 				
 						   textArea.setText("");
 						   textField.setText("");
+						   
+						   total = 0;
 //						   coup.clearList();
 						   //idNum.setText("");
                       }

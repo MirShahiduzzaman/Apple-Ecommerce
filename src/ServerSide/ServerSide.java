@@ -38,7 +38,6 @@ public class ServerSide extends JFrame
 		ServerSide frame = new ServerSide();
 		frame.setVisible(true);
 	}
-
 	
 	
 	//

@@ -218,7 +218,7 @@ public class AppleDemo extends JFrame
 					status.setBackground(Color.LIGHT_GRAY);
 				}
 			});
-			btnNewButton_2.setIcon(new ImageIcon("C:\\Users\\nkounavelis\\Desktop\\Kiosk-iPhone 13 Pro.jpg"));
+			btnNewButton_2.setIcon(new ImageIcon("./images/iphone13pro.jpg"));
 			btnNewButton_2.setBounds(450, 41, 231, 200);
 			//btnNewButton_2.setBounds(250, 41, 187, 200); original size
 			contentPane.add(btnNewButton_2);
@@ -245,7 +245,7 @@ public class AppleDemo extends JFrame
 					status.setBackground(Color.LIGHT_GRAY);
 				}
 			});
-			btnNewButton_4.setIcon(new ImageIcon("C:\\Users\\nkounavelis\\Desktop\\Kiosk-iPhone 13 Pro Max.jpg"));
+			btnNewButton_4.setIcon(new ImageIcon("./images/iphone13promax.jpg"));
 			btnNewButton_4.setBounds(450, 290, 231, 200);
 			//original size btnNewButton_4.setBounds(250, 290, 187, 200);
 			contentPane.add(btnNewButton_4);

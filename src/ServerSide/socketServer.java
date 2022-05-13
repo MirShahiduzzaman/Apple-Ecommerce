@@ -1,5 +1,6 @@
 package ServerSide;
 
+
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -8,7 +9,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.net.BindException;
 import java.net.InetAddress;
-import java.net.NetworkInterface;
 import java.net.ServerSocket;
 import java.net.SocketException;
 import java.net.Socket;
@@ -46,81 +46,23 @@ public class socketServer implements Runnable
 	   static int numOfConnections = 0;
 	   static int numOfMessages = 0;
 	   static int max_connections = 5;
-	   static int numOfTransactions = 0;
-	   
-	   static boolean found = false;
-	   static String ipAddrOfSocketServer = null;
+	   static int numOfTransactions = 0; 
 
 	   socketServer(Socket csocket, String ip)
 	   {
 	      this.csocket  = csocket;
 	      this.ipString = ip;
 	   } 
-	   
-	   static void displayInterfaceInformation(NetworkInterface netint) throws SocketException 
-	    {	
-	    	String dname = netint.getName();
-	    	if (dname.startsWith("en") == true && found == false)
-	    	{
-	           Enumeration<InetAddress> inetAddresses = netint.getInetAddresses();
-	           
-	           int counter= 0;
-	           for (InetAddress inetAddress : Collections.list(inetAddresses))
-	           {   
-	        	   String myAddr = inetAddress.toString();
-	        	   myAddr = myAddr.replaceFirst("/", "");
-	        	   
-	        	   if (counter != 0)
-	        	   {
-	                    ipAddrOfSocketServer = myAddr;
-	                    found = true;
-	        	   }
-	        	   
-	        	   counter++;
-	           }
-	    	}
-	   }
-	   
-	   
+
 	   public static void runSockServer()   // throws Exception
 	   {
-	     boolean sessionDone = false;	  
+	     boolean sessionDone = false;
+	  
 	     ServerSocket ssock = null;
- 
-	     Enumeration<NetworkInterface> nets = null;
-	     
-	     try {
-			InetAddress ip = InetAddress.getLocalHost();
-			ipAddrOfSocketServer = ip.getHostAddress();
-		} catch (UnknownHostException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	     
-		 try 
-		 {
-			nets = NetworkInterface.getNetworkInterfaces();
-		 }
-		 catch (SocketException e3)
-		 {
-			// TODO Auto-generated catch block
-			e3.printStackTrace(); 
-		 }
-		 
-	     for (NetworkInterface netint : Collections.list(nets))
-			try {
-				displayInterfaceInformation(netint);
-			} catch (SocketException e3) {
-				// TODO Auto-generated catch block
-				e3.printStackTrace();
-			}
-
 	   
 	     try
 	     {
-	       InetAddress addr = InetAddress.getByName(ipAddrOfSocketServer);
-	       
-		   ssock = new ServerSocket(port_num, 50, addr);
+		   ssock = new ServerSocket(port_num);
 	     }
 	     catch (BindException e)
 	     {
@@ -132,12 +74,18 @@ public class socketServer implements Runnable
 	     }
 	 
 	     // update the status text area to show progress of program
-		 ServerSide.currIpTF.setText(ipAddrOfSocketServer);
-		     
-		 ServerSide.TransactionTA.append(ipAddrOfSocketServer + newline);
-		 ServerSide.TransactionTA.append("Listening on port: " + Integer.toString(port_num) + newline);
+	     try 
+	     {
+		     InetAddress ipAddress = InetAddress.getLocalHost();
+		     ServerSide.center.append("IP Address : " + ipAddress.getHostAddress() + newline);
+	     }
+	     catch (UnknownHostException e1)
+	     {
+		    // TODO Auto-generated catch block
+		    e1.printStackTrace();
+	     }
 	 
-	     ServerSide.portNumTF.setText(Integer.toString(port_num));
+	     ServerSide.center.append("Listening on port " + port_num + newline);
 	 
 	     //
 	     // initialize the hash table to the following keys or if file hash table data exists, then use it
@@ -199,10 +147,9 @@ public class socketServer implements Runnable
          	    
          	     
                  int currentSize     = clients.size();
-                 // Change this when we have a list of transactions shown in a separate window
-//         	     sss5jsw.right.setText("Total# : " + currentSize + newline);
+         	     ServerSide.right.setText("Total# : " + currentSize + newline);
          	    
-         	     clients.put("totalKiosk", new apple("totalKiosk",
+         	     clients.put("totalapple", new apple("totalapple",
 		    	               transCount,
 			                   ticketCount,
 	                           dollarCount,
@@ -214,15 +161,15 @@ public class socketServer implements Runnable
      	      else
      	      {
      	    	 //
-     	    	 // add these default kiosk names to start out with
+     	    	 // add these default apple names to start out with
      	    	 //
-     		     clients.put("kiosk#001", new apple("kiosk#001", 0, 0, 0.0, 0, 0, 0, 0));
-     		     clients.put("kiosk#002", new apple("kiosk#002", 0, 0, 0.0, 0, 0, 0, 0));
-     		     clients.put("kiosk#003", new apple("kiosk#003", 0, 0, 0.0, 0, 0, 0, 0));
+     		     clients.put("apple#001", new apple("apple#001", 0, 0, 0.0, 0, 0, 0, 0));
+     		     clients.put("apple#002", new apple("apple#002", 0, 0, 0.0, 0, 0, 0, 0));
+     		     clients.put("apple#003", new apple("apple#003", 0, 0, 0.0, 0, 0, 0, 0));
      		     
      		     
      		     //
-                 // add homemade key, "totalKiosk", to HASHTABLE data structure
+                 // add homemade key, "totalapple", to HASHTABLE data structure
                  //
                  int    transCount=0, ticketCount=0, numApples=0, numGrapes=0, numOranges=0, numPears=0;
                  double dollarCount=0.0;
@@ -241,9 +188,9 @@ public class socketServer implements Runnable
          	     
          	     
          	     int currentSize     = clients.size();
-//        	     sss5jsw.right.setText("Total# : " + currentSize + newline);
+        	     ServerSide.right.setText("Total# : " + currentSize + newline);
         	     
-         	     clients.put("totalKiosk", new apple("totalKiosk",
+         	     clients.put("totalapple", new apple("totalapple",
 		    	               transCount,
 			                   ticketCount,
 	                           dollarCount,
@@ -257,8 +204,6 @@ public class socketServer implements Runnable
          {   
      	    e2.printStackTrace(); 
          }		
-
-	     
 	     
 	     sessionDone = false;
 	     while (sessionDone == false)
@@ -277,7 +222,7 @@ public class socketServer implements Runnable
 		    }
 		 
 		    // update the status text area to show progress of program
-	        ServerSide.TransactionTA.append("Client Connected : " + sock.getInetAddress() + newline);
+	        ServerSide.center.append("Client Connected : " + sock.getInetAddress() + newline);
 	        
 	        //
 	        // start a NEW THREAD process
@@ -316,19 +261,18 @@ public class socketServer implements Runnable
 					long finish = System.nanoTime();
 					
 					long timeElapsed = finish - start;
-					// TODO: later, when we have the window with the thing
-//					sss5jsw.right.append(" Time Nano-Seconds : " + timeElapsed + newline);
-//					sss5jsw.right.append("Time Milli-Seconds : " + timeElapsed / 1000000 + newline);
+					ServerSide.right.append(" Time Nano-Seconds : " + timeElapsed + newline);
+					ServerSide.right.append("Time Milli-Seconds : " + timeElapsed / 1000000 + newline);
 					
-					if (clients.containsKey("totalKiosk") == true)
+					if (clients.containsKey("totalapple") == true)
 					{
-						clients.get("totalKiosk").incrementTrans();
-						clients.get("totalKiosk").addItems(Integer.parseInt(items));
-						clients.get("totalKiosk").addDollars(Double.parseDouble(d));
-						clients.get("totalKiosk").addApples(Integer.parseInt(nApples));
-						clients.get("totalKiosk").addGrapes(Integer.parseInt(nGrapes));
-						clients.get("totalKiosk").addOranges(Integer.parseInt(nOranges));
-						clients.get("totalKiosk").addPears(Integer.parseInt(nPears));
+						clients.get("totalapple").incrementTrans();
+						clients.get("totalapple").addItems(Integer.parseInt(items));
+						clients.get("totalapple").addDollars(Double.parseDouble(d));
+						clients.get("totalapple").addApples(Integer.parseInt(nApples));
+						clients.get("totalapple").addGrapes(Integer.parseInt(nGrapes));
+						clients.get("totalapple").addOranges(Integer.parseInt(nOranges));
+						clients.get("totalapple").addPears(Integer.parseInt(nPears));
 					}
 		        }
 				else
@@ -346,20 +290,18 @@ public class socketServer implements Runnable
 					long finish = System.nanoTime();
 					
 					long timeElapsed = finish - start;
-					// TODO: later, when we have the window with the thing
-
-//					sss5jsw.right.append(" Time Nano-Seconds : " + timeElapsed + newline);
-//					sss5jsw.right.append("Time Milli-Seconds : " + timeElapsed / 1000000 + newline);
+					ServerSide.right.append(" Time Nano-Seconds : " + timeElapsed + newline);
+					ServerSide.right.append("Time Milli-Seconds : " + timeElapsed / 1000000 + newline);
 					
-					if (clients.containsKey("totalKiosk") == true)
+					if (clients.containsKey("totalapple") == true)
 					{
-						clients.get("totalKiosk").incrementTrans();
-						clients.get("totalKiosk").addItems(Integer.parseInt(items));
-						clients.get("totalKiosk").addDollars(Double.parseDouble(d));
-						clients.get("totalKiosk").addApples(Integer.parseInt(nApples));
-						clients.get("totalKiosk").addGrapes(Integer.parseInt(nGrapes));
-						clients.get("totalKiosk").addOranges(Integer.parseInt(nOranges));
-						clients.get("totalKiosk").addPears(Integer.parseInt(nPears));
+						clients.get("totalapple").incrementTrans();
+						clients.get("totalapple").addItems(Integer.parseInt(items));
+						clients.get("totalapple").addDollars(Double.parseDouble(d));
+						clients.get("totalapple").addApples(Integer.parseInt(nApples));
+						clients.get("totalapple").addGrapes(Integer.parseInt(nGrapes));
+						clients.get("totalapple").addOranges(Integer.parseInt(nOranges));
+						clients.get("totalapple").addPears(Integer.parseInt(nPears));
 					}
 				}
 			break;
@@ -374,20 +316,20 @@ public class socketServer implements Runnable
 	}
 
 	//
-	// add a new KIOSK entry and number to the hash table
+	// add a new apple entry and number to the hash table
 	//
-	public static void createNewKiosk()
+	public static void createNewapple()
 	{
-		int nextKioskNumber, currentSize = 0;
-		String kioskString;
+		int nextappleNumber, currentSize = 0;
+		String appleString;
 		
 		currentSize     = clients.size();
-		nextKioskNumber = currentSize + 1;
+		nextappleNumber = currentSize + 1;
 		
-		nextKioskNumber = nextKioskNumber - 1;
-		kioskString     = "kiosk#" + String.format("%03d", nextKioskNumber);
+		nextappleNumber = nextappleNumber - 1;
+		appleString     = "apple#" + String.format("%03d", nextappleNumber);
 				
-//		clients.put(kioskString, new kiosk(kioskString, 0, 0, 0.0, 0, 0, 0, 0));
+		clients.put(appleString, new apple(appleString, 0, 0, 0.0, 0, 0, 0, 0));
 	}
 
 	//
@@ -415,7 +357,7 @@ public class socketServer implements Runnable
 		
 	    for (String key : v)
 	    {
-	    	if (key.equals("totalKiosk") == true)
+	    	if (key.equals("totalapple") == true)
 	    		continue;
 	    	
 	        outg.println(clients.get(key).forFileOutput());
@@ -438,9 +380,9 @@ public class socketServer implements Runnable
 	    for (String str : v)
 	    {
 	    	//
-	    	// add a line feed before the total KIOSK data
+	    	// add a line feed before the total apple data
 	    	//
-	    	if (str == "totalKiosk")
+	    	if (str == "totalapple")
 	    		rs = rs + "\r\n";
 	    
 	        rs = rs + clients.get(str.toString()) + "\r\n";
@@ -451,16 +393,14 @@ public class socketServer implements Runnable
 
 	
 	//
-	// CLIENT THREAD CODE - This is the thread code that ALL Internet clients will run()
+	// CLIENT THREAD CODE - This is the thread code that ALL clients will run()
 	//
 	public void run()
 	{
-	   long threadId = 0;
-	   
 	   try
 	   {
-		  int watchDog = 0;
-		  boolean session_done = false;
+		  boolean session_done = false; 
+	      long threadId;
 	      String clientString;
 	      String keyString = "";
 	    
@@ -468,7 +408,7 @@ public class socketServer implements Runnable
 	      
 	      numOfConnections++;
 	      
-	      ServerSide.TransactionTA.append("Num of Connections = " + numOfConnections + newline);
+	      ServerSide.center.append("Num of Connections = " + numOfConnections + newline);
 	      
 	      keyString = ipString + ":" + threadId;
 	      
@@ -480,15 +420,15 @@ public class socketServer implements Runnable
 	    	    int counter = 0;
 	        	vec.addElement(keyString);
 	        	
-	        	ServerSide.textArea.setText("");
+	        	ServerSide.bottom.setText("");
 	        	Enumeration<String> en = vec.elements();
 	        	while (en.hasMoreElements())
 	        	{
-	        		ServerSide.textArea.append(en.nextElement() + " || ");
+	        		ServerSide.bottom.append(en.nextElement() + " || ");
 	        		
 	        		if (++counter >= 6)
 	        		{
-	        			ServerSide.textArea.append("\r\n");
+	        			ServerSide.bottom.append("\r\n");
 	        			counter = 0;
 	        		}
 	        	}
@@ -499,11 +439,10 @@ public class socketServer implements Runnable
 	       
 	      while (session_done == false)
 	      {
-	          if (rstream.ready())   // check for any data messages
-	          {
+	       	if (rstream.ready())   // check for any data messages
+	       	{
 	              clientString = rstream.readLine();
 
-	              watchDog = 0;             // reset the watch counter back to zero
 	              
 	              //
 	              // write to transaction log
@@ -513,10 +452,10 @@ public class socketServer implements Runnable
 	              
 	              	              
 	              // update the status text area to show progress of program
-	              ServerSide.TransactionTA.append("RECV : " + clientString + newline);
+	   	           ServerSide.center.append("RECV : " + clientString + newline);
 	     	       
 	     	       // update the status text area to show progress of program
-	              ServerSide.TransactionTA.append("RLEN : " + clientString.length() + newline);
+	     	       ServerSide.center.append("RLEN : " + clientString.length() + newline);
 	              
 	              if (clientString.length() > 128)
 	              {
@@ -546,7 +485,7 @@ public class socketServer implements Runnable
 	            	  }
 	            	  else
 	            	  {
-	            		  pstream.println("NACK : ERROR : No such kiosk number!");
+	            		  pstream.println("NACK : ERROR : No such apple number!");
 	            	  }
 	              }
 	              else if (clientString.contains("Transaction>"))
@@ -573,8 +512,7 @@ public class socketServer implements Runnable
 	            	  
 	            	  if (tokens.length == 2)
 	            	  {
-	            		  // TODO: implement apple ver of this
-//	            	     clients.put(tokens[1], new kiosk(tokens[1], 0, 0, 0.0, 0, 0, 0, 0));
+	            	     clients.put(tokens[1], new apple(tokens[1], 0, 0, 0.0, 0, 0, 0, 0));
 	            	     
 	            	     pstream.println("ACK");
 	            	  }
@@ -610,16 +548,8 @@ public class socketServer implements Runnable
 	       	   }
 	         			    		        	
 	           Thread.sleep(500);
-
-	           if (++watchDog >= 40)     // if not messages by this client in 40 seconds, then close connection
-	           {
-	        	   watchDog = 0;
-	        	   session_done = true;
-	           }
-	        }    // end WHILE LOOP - session_done
-	      
-	      
-	      
+	           
+	        }    // end while loop
 	
             keyString = ipString + ":" + threadId;
 	      
@@ -628,20 +558,20 @@ public class socketServer implements Runnable
 	        	int counter = 0;
 	        	vec.removeElement(keyString);
 	        	
-	        	ServerSide.textArea.setText("");
+	        	ServerSide.left.setText("");
 	        	Enumeration<String> en = vec.elements();
 	        	while (en.hasMoreElements())
 	        	{        		     		
-	        		ServerSide.textArea.append(en.nextElement() + " || ");
+                    ServerSide.left.append(en.nextElement() + " || ");
 	        		
 	        		if (++counter >= 6)
 	        		{
-	        			ServerSide.textArea.append("\r\n");
+	        			ServerSide.left.append("\r\n");
 	        			counter = 0;
 	        		}
 	        	}
 
-	        	ServerSide.textArea.repaint();
+  	            //sss5.textArea_2.repaint();
 	        }
 	      
 	        numOfConnections--;
@@ -650,78 +580,38 @@ public class socketServer implements Runnable
 	        csocket.close();
 	       
 	        // update the status text area to show progress of program
-	        ServerSide.TransactionTA.append("Child Thread : " + threadId + " : is Exiting!!!" + newline);
-		     ServerSide.TransactionTA.append("Num of Connections = " + numOfConnections + newline);
+		     ServerSide.center.append("Child Thread : " + threadId + " : is Exiting!!!" + newline);
+		     ServerSide.center.append("Num of Connections = " + numOfConnections);
 		     
-		     return;
 	     } // end try  
 	 
 	     catch (SocketException e)
 	     {
 		  // update the status text area to show progress of program
-	    	 ServerSide.TransactionTA.append("ERROR : Socket Exception!" + newline);
+	      ServerSide.center.append("ERROR : Socket Exception!" + newline);
 	     }
 	     catch (InterruptedException e)
 	     {
 		  // update the status text area to show progress of program
-	    	 ServerSide.TransactionTA.append("ERROR : Interrupted Exception!" + newline);
+	      ServerSide.center.append("ERROR : Interrupted Exception!" + newline);
 	     }
 	     catch (UnknownHostException e)
 	     {
 		  // update the status text area to show progress of program
-	    	 ServerSide.TransactionTA.append("ERROR : Unkonw Host Exception" + newline);
+	      ServerSide.center.append("ERROR : Unkonw Host Exception" + newline);
 	     }
 	     catch (IOException e) 
 	     {
 	     // update the status text area to show progress of program
-	    	 ServerSide.TransactionTA.append("ERROR : IO Exception!" + newline);
+	      ServerSide.center.append("ERROR : IO Exception!" + newline);
 	     }     
 	     catch (Exception e)
 	     { 
 		  numOfConnections--;
 		  
 		  // update the status text area to show progress of program
-		  ServerSide.TransactionTA.append("ERROR : Generic Exception!" + newline);
+	      ServerSide.center.append("ERROR : Generic Exception!" + newline);
 	     }
 	   
-         String keyString = ipString + ":" + threadId;
-	      
-         if (vec.contains(keyString) == true)
-         {
-        	int counter = 0;
-        	vec.removeElement(keyString);
-        	
-    		ServerSide.textArea.setText("");
-        	Enumeration<String> en = vec.elements();
-        	while (en.hasMoreElements())
-        	{        		     		
-        		ServerSide.textArea.append(en.nextElement() + " || ");
-        		
-        		if (++counter >= 6)
-        		{
-        			ServerSide.textArea.append("\r\n");
-        			counter = 0;
-        		}
-        	}
-        	ServerSide.textArea.repaint();
-         }
-      
-         if (numOfConnections > 0)
-            numOfConnections--;
-
-         // close client socket
-         try 
-         { 
-			csocket.close();
-		 } 
-         catch (IOException e)
-         {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		 }
-       
-         // update the status text area to show progress of program
-	     ServerSide.TransactionTA.append("Num of Connections = " + numOfConnections + newline);
-	     
 	  }  // end run() thread method
 }

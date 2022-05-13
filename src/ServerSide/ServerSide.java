@@ -1,255 +1,363 @@
 package ServerSide;
 
 import java.awt.Color;
-import java.awt.EventQueue;
-
-import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.text.NumberFormatter;
-
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.Date;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 
-import ServerSide.socketServer;
-
-public class ServerSide {
-
-	private JFrame frame;
-	public static JTextArea TransactionTA;
-	public static JTextArea textArea;
-	public static JTextField iPhoneSoldTF;
-	public static JTextField iPadSoldTF;
-	public static JTextField MacBookSoldTF;
-	public static JTextField AirPodSoldTF;
-	public static JTextField TtlProductSoldTF;
-	public static JTextField AppleCareTF;
-	public static JTextField TtlProfitsTF;
-	public static JTextField CustSupportTF;
-	public static JTextField currIpTF;
-	public static JTextField portNumTF;
-
+public class ServerSide extends JFrame 
+{
 	/**
-	 * Launch the application.
+	 * 
 	 */
+	private static final long serialVersionUID = 1L;
 	
-	static double total = 0;
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ServerSide window = new ServerSide();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+	// global variables
+	public static JTextArea top;
+	public static JTextArea left;
+	public static JTextArea center;
+	public static JTextArea right;
+	public static JTextArea bottom;
+	
+	//
+	// main method starts here
+	//
+	public static void main(String[] args)
+	{
+		ServerSide frame = new ServerSide();
+		frame.setVisible(true);
+	}
+
+	
+	
+	//
+	// constructor
+	//
+	public ServerSide()
+	{
+		InetAddress ipAddress = null;
+		try
+		{
+			ipAddress = InetAddress.getLocalHost();
+		}
+		catch (UnknownHostException el)
+		{
+			el.printStackTrace();
+		}
+		
+		String titleString = "Simple Socket Server JAVA SWING Rev 5.0   :   Rel Date  :  Feb. 27, 2022    3:30 PM        " + 
+	                   "IP : " + ipAddress.getHostAddress() + "     Port# : 3333";
+		setTitle(titleString);
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
+		//
+		// set the Frame size
+		//
+		setSize(1020, 700);
+		
+		// 
+		// panel title
+		//
+		JPanel contentPane = new JPanel();
+		contentPane.setBorder(new TitledBorder(new EtchedBorder(), "Simple Socket Server Rev.5 JAVA Swing"));
+		
+		
+		setContentPane(contentPane);
+		
+		
+		//
+		// TOP - available text area - has the real-time clock display for now
+		//
+		top = new JTextArea();
+		top.setEditable(false);
+		top.setBounds(15, 20, 975, 90);
+		top.setBorder(new EtchedBorder(EtchedBorder.RAISED));
+		top.setBackground(Color.LIGHT_GRAY);
+		contentPane.add(top);
+		
+		//
+		// LEFT - available text area
+		//
+		left = new JTextArea();
+		left.setEditable(false);
+		left.setBounds(15, 120, 200, 450);
+		left.setBorder(new EtchedBorder(EtchedBorder.RAISED));
+		left.setBackground(Color.LIGHT_GRAY);
+		contentPane.add(left);
+		
+		
+		//
+		// main area for socket server to display messages
+		//
+		center = new JTextArea();
+		center.setEditable(false);
+		center.setBounds(225, 120, 600, 450);
+		center.setBorder(new EtchedBorder(EtchedBorder.RAISED));
+		center.setBackground(Color.LIGHT_GRAY);
+		contentPane.add(center);
+	
+		
+		//
+		// RIGHT - available text
+		//
+		right = new JTextArea();
+		right.setEditable(false);
+		right.setBounds(840, 120, 145, 450);
+		right.setBorder(new EtchedBorder(EtchedBorder.RAISED));
+		right.setBackground(Color.LIGHT_GRAY);
+		contentPane.add(right);
+		
+		
+		//
+		// BOTTOM - available text area
+		//
+		bottom = new JTextArea();
+		bottom.setEditable(false);
+		bottom.setBounds(15, 580, 975, 35);
+		bottom.setBorder(new EtchedBorder(EtchedBorder.RAISED));
+		bottom.setBackground(Color.LIGHT_GRAY);
+		contentPane.add(bottom);
+		
+		
+		//
+		// define all BUTTONS
+		//
+		JButton exitButton = new JButton("EXIT");
+		exitButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		exitButton.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				int result = JOptionPane.showConfirmDialog(null,
+						     "Do you really want to exit the Socket Server?",
+						     "Socket Server Backend",
+						     JOptionPane.INFORMATION_MESSAGE);
+				
+				if (result == JOptionPane.OK_OPTION)
+				{
+					socketServer.writeHashTableData();
+					
+					dispose();
+					System.exit(0);
+				}		
 			}
 		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public ServerSide() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-
+		exitButton.setBounds(4, 620, 133, 30);;
+		contentPane.add(exitButton);
+		
+		
+		
+		// 
+		// List Kiosk Button
 		//
-		// Frame title display current time
+		JButton listKiosks = new JButton("LIST KIOSKS");
+		listKiosks.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		listKiosks.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				JOptionPane.showMessageDialog(null, 
+		                   socketServer.getAllTransactions(),
+		                   "Food Truck",
+		                   JOptionPane.INFORMATION_MESSAGE);
+				
+			}
+		});
+		listKiosks.setBounds(150, 620, 133, 30);;
+		contentPane.add(listKiosks);
+		
+		
+		
+		
+		
+		//JButton clients = new JButton("Clients");
+		//clients.setOnAction(new EventHandler<ActionEvent>()
+		//{
+		//	@Override
+		// 	public void handle(ActionEvent e)
+		// 	{
 		//
-		Date  date = new Date();
-		String str = String.format("%tc", date);
-		
-		frame = new JFrame();
-		frame.setBounds(100, 100, 1000, 800);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		
-		frame.setTitle(str);
-		//Transaction *****************************************************************************
-		JLabel OrdersL = new JLabel("Orders Placed: ");
-		OrdersL.setFont(new Font("Tahoma", Font.BOLD, 20));
-		OrdersL.setBounds(35, 35, 175, 20);
-		frame.getContentPane().add(OrdersL);
-		
-		//Transaction Log Text Field
-		TransactionTA = new JTextArea();
-		TransactionTA.setEditable(false);
-		TransactionTA.setBounds(35, 70, 500, 650);
-		frame.getContentPane().add(TransactionTA);
-		TransactionTA.setColumns(10);
-		//*****************************************************************************************
-		
-		//Sales Analysis **************************************************************************
-		JLabel ProductL = new JLabel("Product Sold:");
-		ProductL.setFont(new Font("Tahoma", Font.BOLD, 20));
-		ProductL.setBounds(600, 35, 150, 20);
-		frame.getContentPane().add(ProductL);
-		
-		//Products Info --------------------------------------------------
-		//iPhone
-		JLabel iPhoneSoldL = new JLabel("iPhones Sold:");
-		iPhoneSoldL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		iPhoneSoldL.setBounds(600, 70, 100, 20);
-		frame.getContentPane().add(iPhoneSoldL);
-		
-		iPhoneSoldTF = new JTextField();
-		iPhoneSoldTF.setEditable(false);
-		iPhoneSoldTF.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		iPhoneSoldTF.setBounds(700, 70, 95, 20);
-		frame.getContentPane().add(iPhoneSoldTF);
-		iPhoneSoldTF.setColumns(10);
-		
-		//iPad
-		JLabel iPadSoldL = new JLabel("iPads Sold:");
-		iPadSoldL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		iPadSoldL.setBounds(600, 100, 100, 20);
-		frame.getContentPane().add(iPadSoldL);
-		
-		iPadSoldTF = new JTextField();
-		iPadSoldTF.setEditable(false);
-		iPadSoldTF.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		iPadSoldTF.setBounds(700, 100, 95, 20);
-		frame.getContentPane().add(iPadSoldTF);
-		iPadSoldTF.setColumns(10);
-		
-		//MacBook
-		JLabel MacBookSoldL = new JLabel("MacBooks Sold:");
-		MacBookSoldL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		MacBookSoldL.setBounds(600, 130, 100, 20);
-		frame.getContentPane().add(MacBookSoldL);
-		
-		MacBookSoldTF = new JTextField();
-		MacBookSoldTF.setEditable(false);
-		MacBookSoldTF.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		MacBookSoldTF.setBounds(700, 130, 95, 20);
-		frame.getContentPane().add(MacBookSoldTF);
-		MacBookSoldTF.setColumns(10);
-		
-		//AirPods 
-		JLabel AirPodSoldL = new JLabel("Air Pods Sold:");
-		AirPodSoldL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		AirPodSoldL.setBounds(600, 160, 100, 20);
-		frame.getContentPane().add(AirPodSoldL);
-		
-		AirPodSoldTF = new JTextField();
-		AirPodSoldTF.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		AirPodSoldTF.setEditable(false);
-		AirPodSoldTF.setBounds(700, 160, 95, 20);
-		frame.getContentPane().add(AirPodSoldTF);
-		AirPodSoldTF.setColumns(10);
-		
-		//Overall Products Info-----------------------------------------------
-		//Total Products Sold
-		JLabel TtlProductSoldL = new JLabel("Total Products Sold:");
-		TtlProductSoldL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		TtlProductSoldL.setBounds(600, 245, 145, 20);
-		frame.getContentPane().add(TtlProductSoldL);
-		
-		TtlProductSoldTF = new JTextField();
-		TtlProductSoldTF.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		TtlProductSoldTF.setEditable(false);
-		TtlProductSoldTF.setBounds(760, 245, 95, 20);
-		frame.getContentPane().add(TtlProductSoldTF);
-		TtlProductSoldTF.setColumns(10);
+		//	}
+		//});
 		
 		
-		//Total Profits 
-		JLabel TtlProfitsL = new JLabel("Total Profits:");
-		TtlProfitsL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		TtlProfitsL.setBounds(600, 275, 145, 20);
-		frame.getContentPane().add(TtlProfitsL);
 		
-		TtlProfitsTF = new JTextField();
-		TtlProfitsTF.setEditable(false);
-		TtlProfitsTF.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		TtlProfitsTF.setBounds(760, 275, 95, 20);
-		frame.getContentPane().add(TtlProfitsTF);
-		TtlProfitsTF.setColumns(10);		
+		//JButton showLog = new JButton("Show Log");
+		//showLog.setOnAction(new EventHandler<ActionEvent>()
+		//{
+		//	@Override
+		// 	public void handle(ActionEvent e)
+		// 	{
+		//		Platform.runLater(new Runnable() 
+		//		 {
+		//			    String logString = "";
+		//			    
+		//		        public void run() 
+		//		        {
+		//		        	try
+		//		            {
+		//		        	      File f = new File("transactionLog.txt");
+		//		        	      if (f.exists())
+		//		        	      {
+		//		                    FileReader reader = new FileReader("transactionLog.txt");
+		//		                    BufferedReader br = new BufferedReader(reader);
+		//		                  
+		//		                    String line = br.readLine();
+		//		                    while (line != null)
+		//		                    {
+		//		                    	logString = logString + line + "\r\n";
+		//		                    	line = br.readLine();
+		//		                    }
+		//		                    
+		//		                    br.close();
+		//		        	      }
+		//		        	      else
+		//		        	      {
+		//		        	    	  logString = "No log File Found!";
+		//		        	      }
+		//		        	 }
+		//		             catch(Exception e2)
+		//		             {   
+		//		        	    e2.printStackTrace(); 
+		//		             }		
+		//		        	
+		//		             Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		//		             alert.setTitle("--- Ticket Kiosk ---");
+		//		             alert.setHeaderText("Transaction Log File");
+		//		          
+		//		             alert.setContentText(logString);
+		//		             alert.setWidth(300);
+		//		             alert.setHeight(600);
+		//		             alert.showAndWait();
+		//		        }
+		//		    });	
+		//	}
+		//});
 		
-		//Apple Care Connected
-		JLabel AppleCareL = new JLabel("Apple Care Connected:");
-		AppleCareL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		AppleCareL.setBounds(605, 301, 145, 20);
-		frame.getContentPane().add(AppleCareL);
+		
+		
+		
+		//JButton summary = new JButton("Summary");
+		//summary.setOnAction(new EventHandler<ActionEvent>()
+		//{
+		//	@Override
+		//	public void handle(ActionEvent e)
+		// 	{
+		//
+		//	}
+		//});
+		
+		
+		
+		
+		
+		//JButton newKiosk = new JButton("New Kiosk");
+		//newKiosk.setOnAction(new EventHandler<ActionEvent>()
+		//{
+		//	@Override
+		//	public void handle(ActionEvent e)
+		// 	{
+		//		Platform.runLater(new Runnable() 
+		//		 {
+		//		        public void run() 
+		//		        {
+		//		          sockServer.createNewKiosk();
+		//		          
+		//		          Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		//		          alert.setTitle("--- Ticket Kiosk ---");
+		//		          alert.setHeaderText("Total Number of Transactions");
+		//		          
+		//		          alert.setContentText(sockServer.getAllTransactions());
+		//		          
+		//		          alert.showAndWait();
+		//		        }
+		//		    });	
+		//	}
+		//});
+		
+		
+		
+		//JButton query1 = new JButton("Query #1");
+		//query1.setOnAction(new EventHandler<ActionEvent>()
+		//{
+		//	@Override
+		// 	public void handle(ActionEvent e)
+		// 	{
+		//
+		//	}
+		//});
+		
+		
+		
+		
+		//JButton query2 = new JButton("Query #2");
+		//query2.setOnAction(new EventHandler<ActionEvent>()
+		//{
+		//	@Override
+		// 	public void handle(ActionEvent e)
+		// 	{
+		//
+		//	}
+		//});
+		
+		
+		
 		
 
-		AppleCareTF = new JTextField();
-		AppleCareTF.setEditable(false);
-		AppleCareTF.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		AppleCareTF.setBounds(760, 300, 95, 20);
-		frame.getContentPane().add(AppleCareTF);
-		AppleCareTF.setColumns(10);
-		
-		//*****************************************************************************************
+	
 		
 		
-		//Customer Support Analysis ***************************************************************
-		JLabel SupportL = new JLabel("Support Contact:");
-		SupportL.setFont(new Font("Tahoma", Font.BOLD, 20));
-		SupportL.setBounds(600, 375, 175, 20);
-		frame.getContentPane().add(SupportL);
+		//JButton helpButton = new JButton("HELP");
+		//helpButton.setOnAction(new EventHandler<ActionEvent>()
+		//{
+		//	@Override
+		// 	public void handle(ActionEvent e)
+		// 	{
+		//		 Platform.runLater(new Runnable() 
+		//		 {
+		//		        public void run() 
+		//		        {
+		//		          Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		//		          alert.setTitle("--- Ticket Kiosk Help Window ---");
+		//		          alert.setHeaderText("Help Screen");
+		//		          
+		//		          String hStr="- Click on   EXIT   button to quit the socket server.\r\n" + 
+		//		        		      "- Click on   Show Log   to display current transaction log file.\r\n" +
+		//		        		      "- Click on   New Kiosk   to create the next ticket kiosk station.\r\n" +
+		//		                      "- Click on   LIST KIOSKS to display current status of kiosks.\r\n";
+		//		          
+		//		          alert.setContentText(hStr);
+		//		          alert.showAndWait();
+		//		        }
+		//		    });
+		//	}
+		//});		
 		
-		//Contacted Support ----------------------------------------------
-		JLabel CustSupportL = new JLabel("Customers Requesting Support:");
-		CustSupportL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		CustSupportL.setBounds(600, 440, 200, 20);
-		frame.getContentPane().add(CustSupportL);
 		
-		CustSupportTF = new JTextField();
-		CustSupportTF.setEditable(false);
-		CustSupportTF.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		CustSupportTF.setBounds(810, 440, 95, 20);
-		frame.getContentPane().add(CustSupportTF);
-		CustSupportTF.setColumns(10);
 		
-		//Customer Satisfaction -----------------------------------------
-		JLabel CustSatisfactionL = new JLabel("Customer Satisfaction:");
-		CustSatisfactionL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		CustSatisfactionL.setBounds(600, 410, 150, 20);
-		frame.getContentPane().add(CustSatisfactionL);
+		// start all threads  for the GUI screen here
+		startRealTimeClock();
 		
-		//Creating Formatter
-		NumberFormat percFormat = new DecimalFormat("00.00%"); 
-		NumberFormatter  percFormatter  = new NumberFormatter(percFormat);
 		
-		JFormattedTextField CustSatisfactionFTF = new JFormattedTextField(percFormatter);
-		CustSatisfactionFTF.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		CustSatisfactionFTF.setEditable(false);
-		CustSatisfactionFTF.setBounds(810, 410, 95, 20);
-		frame.getContentPane().add(CustSatisfactionFTF);
 		
-		//Visual Representation of Satisfaction
-		String custSatisf = CustSatisfactionFTF.getText();
-		float custSatisfF = 74;
 		
-		if(custSatisfF >= 90.00)
-		{
-			CustSatisfactionFTF.setBackground(Color.green);
-		}
-		else if((custSatisfF > 60.00) && (custSatisfF < 90.00))
-		{
-			CustSatisfactionFTF.setBackground(Color.yellow);
-		}
-		else
-		{
-			CustSatisfactionFTF.setBackground(Color.red);
-		}
 		
-		//*****************************************************************************************
+		// start the socket server thread - will start to accept client connections
 		startSockServer();
 		
 		
@@ -259,121 +367,59 @@ public class ServerSide {
 		//
 		// lights, camera, action
 		//
-		frame.getContentPane().setLayout(null);
+		contentPane.setLayout(null);
 		
-		textArea = new JTextArea();
-		textArea.setBounds(600, 499, 313, 221);
-		frame.getContentPane().add(textArea);
-		
-		JLabel currIpL = new JLabel("Current IP:");
-		currIpL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		currIpL.setBounds(35, 10, 71, 20);
-		frame.getContentPane().add(currIpL);
-		
-		currIpTF = new JTextField();
-		currIpTF.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		currIpTF.setEditable(false);
-		currIpTF.setColumns(10);
-		currIpTF.setBounds(108, 13, 95, 20);
-		frame.getContentPane().add(currIpTF);
-		
-		JLabel portNumL = new JLabel("Port Number:");
-		portNumL.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		portNumL.setBounds(266, 10, 95, 20);
-		frame.getContentPane().add(portNumL);
-		
-		portNumTF = new JTextField();
-		portNumTF.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		portNumTF.setEditable(false);
-		portNumTF.setColumns(10);
-		portNumTF.setBounds(354, 13, 95, 20);
-		frame.getContentPane().add(portNumTF);
-		
-		InetAddress localhost;
-		try {
-			localhost = InetAddress.getLocalHost();
-	        System.out.println("System IP Address : " +
-	                      (localhost.getHostAddress()).trim());
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		// 
-		// call thread to update date and time
-		//
-		refreshTitleBar();
-//		this.setLocationRelativeTo(null);
-	
+		this.setLocationRelativeTo(null);
 	}
+
 	
-	//
-    // Thread to update TITLE BAR, date, and time     
-    //     
-    private void refreshTitleBar()
-    {	
-	   Thread refreshAllTitleBar = new Thread()
+  /*
+   * Thread to update weather info for NYC and Boston    
+   */     
+  private void startSockServer()
+  {	
+	 Thread refreshWeatherThread = new Thread()
+	 {
+	    public void run()
+		  { 	
+			  socketServer.runSockServer();
+	      }
+	 };
+
+    refreshWeatherThread.start();
+  }
+	
+  
+  /*
+   * Thread to update real-time clock
+   */     
+  private void startRealTimeClock()
+  {	
+	   Thread refreshClock = new Thread()
 	   {
 		  public void run()
-		  { 
+		  {  
 			 while (true)
-			 {
-				 try 
-				 {
-				   //
-				   // display current time
-				   //
-				   Date  date = new Date();
-				   String str = String.format("%tc", date);
-              	   
-				   String titleString = "--- Apple Server --- " + str; 				 
-				   
-				   frame.setTitle(titleString);
+			 {	 			      
+				   Date   date = new Date();
+				   String str = String.format("\n    %tc", date);
 					 
-				   sleep(5000L);                   // sleep for 5 seconds or 5,000 milliseconds
+				   top.setText("");
+				   top.setText(str);
 				   
-                 } // end try block
-			  
-		         catch (InterruptedException e) 
-		         {
-		        	 JOptionPane.showMessageDialog(null, 
-                              "ERROR. Interrupt Exception! Check Internet Connection!",
-                              "Title Top Bar",
-                              JOptionPane.WARNING_MESSAGE);
-		        	 
-		        	 continue;
-			     }
-		         finally
-		         {
-			   
-		         }
-			 } // end while true
+			    	try
+				    {
+					   sleep(5000L);
+				    }
+				    catch (InterruptedException e)
+				   {
+					   // TODO Auto-generated catch block
+					  e.printStackTrace();
+				   }
+             } // end while true 
 	     }
 	  };
 
-      refreshAllTitleBar.start();
-    }
-	
-	/*
-	   * Thread to update weather info for NYC and Boston    
-	   */     
-	  private void startSockServer()
-	  {	
-		 Thread refreshWeatherThread = new Thread()
-		 {
-		    public void run()
-			  { 	
-				  socketServer.runSockServer();
-		      }
-		 };
-	
-	    refreshWeatherThread.start();
-	  }
-	
-	public void setTotal(double val)
-	{
-		total = val;
-		iPhoneSoldTF.setText("$" + String.format("%.2f", total) + "\r\n");
-		TtlProfitsTF.setText("$" + String.format("%.2f", total) + "\r\n");
-	}
+    refreshClock.start();
+  }
 }

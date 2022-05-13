@@ -303,15 +303,17 @@ public class cart extends JFrame {
 		submitBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{	
-//				dataStr = "appleId" + ",firstName=" + firstNameF + ",midName=" + midNameF + ",lastName=" + lastNameF + 
-//						",phone=" + phoneF + ",address=" + addressF + ",apt=" + aptF + ",zip=" + zipF + 
-//						",city=" + cityF + ",cardNum=" + cardNumF + ",cardMonth=" + cardMonthF + ",cardDate=" + cardDateF + 
-//						",cardYear=" + cardYearF + ",cvv=" + cvvF;
-//				
-//				fileIO fio = new fileIO();
-//			
-//				
-//				fio.wrTransactionData(dataStr);
+				String dataStr = null;
+				dataStr = "appleId" + ",firstName=" + firstNameF.getText() + ",midName=" + midNameF.getText() + ",lastName=" + lastNameF.getText() + 
+						",phone=" + phoneF.getText() + ",address=" + addressF.getText() + ",apt=" + aptF.getText() + ",zip=" + zipF.getText() + 
+						",city=" + cityF.getText();
+				
+				fileIO fio = new fileIO();
+			
+			
+				fio.wrTransactionData(dataStr);
+				
+				
 				   
 			   if (textArea.getText().trim().length() == 0)
 			   {

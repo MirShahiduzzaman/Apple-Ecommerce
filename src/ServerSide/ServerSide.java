@@ -86,24 +86,24 @@ public class ServerSide extends JFrame
 		top.setBorder(new EtchedBorder(EtchedBorder.RAISED));
 		top.setBackground(Color.LIGHT_GRAY);
 		contentPane.add(top);
-		
+
 		//
 		// LEFT - available text area
 		//
 		left = new JTextArea();
 		left.setEditable(false);
-		left.setBounds(15, 120, 200, 450);
+		left.setBounds(15, 120, 150, 450);
 		left.setBorder(new EtchedBorder(EtchedBorder.RAISED));
 		left.setBackground(Color.LIGHT_GRAY);
 		contentPane.add(left);
 		
-		
+
 		//
 		// main area for socket server to display messages
 		//
 		center = new JTextArea();
 		center.setEditable(false);
-		center.setBounds(225, 120, 600, 450);
+		center.setBounds(175, 120, 600, 450);
 		center.setBorder(new EtchedBorder(EtchedBorder.RAISED));
 		center.setBackground(Color.LIGHT_GRAY);
 		contentPane.add(center);
@@ -114,7 +114,7 @@ public class ServerSide extends JFrame
 		//
 		right = new JTextArea();
 		right.setEditable(false);
-		right.setBounds(840, 120, 145, 450);
+		right.setBounds(785, 120, 205, 450);
 		right.setBorder(new EtchedBorder(EtchedBorder.RAISED));
 		right.setBackground(Color.LIGHT_GRAY);
 		contentPane.add(right);

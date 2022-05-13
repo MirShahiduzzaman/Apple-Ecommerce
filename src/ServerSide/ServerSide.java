@@ -56,8 +56,7 @@ public class ServerSide extends JFrame
 			el.printStackTrace();
 		}
 		
-		String titleString = "Simple Socket Server JAVA SWING Rev 5.0   :   Rel Date  :  Feb. 27, 2022    3:30 PM        " + 
-	                   "IP : " + ipAddress.getHostAddress() + "     Port# : 3333";
+		String titleString = "IP : " + ipAddress.getHostAddress() + "     Port# : 3333";
 		setTitle(titleString);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

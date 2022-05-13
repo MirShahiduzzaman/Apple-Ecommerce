@@ -20,6 +20,11 @@ import javax.swing.JComboBox;
 import java.awt.Dimension;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Vector;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JTextArea;
@@ -43,6 +48,7 @@ public class cart extends JFrame {
 	private JTextField appleIdF;
 	private JTextField statusF;
 	private JTextField totalF;
+	private JTextArea textArea;
 //	private String dataStr;
 
 	/**
@@ -62,6 +68,11 @@ public class cart extends JFrame {
 	}
 
 	static double total = 0;
+	static Hashtable<String, Double> items = new Hashtable<String, Double>();
+	static Hashtable<String, Integer> counts = new Hashtable <String, Integer>();
+	
+	
+	
 	/**
 	 * Create the frame.
 	 */
@@ -283,13 +294,15 @@ public class cart extends JFrame {
 		contentPane.add(statusF);
 		statusF.setColumns(10);
 		
+		textArea = new JTextArea();
+		textArea.setEditable(false);
+		textArea.setBounds(660, 15, 286, 382);
+		contentPane.add(textArea);
+		
 		JButton submitBtn = new JButton("SUBMIT");
 		submitBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
-			{
-				String nameFieldStr = firstNameF.getText();
-				nameFieldStr        = nameFieldStr.trim();
-				
+			{	
 //				dataStr = "appleId" + ",firstName=" + firstNameF + ",midName=" + midNameF + ",lastName=" + lastNameF + 
 //						",phone=" + phoneF + ",address=" + addressF + ",apt=" + aptF + ",zip=" + zipF + 
 //						",city=" + cityF + ",cardNum=" + cardNumF + ",cardMonth=" + cardMonthF + ",cardDate=" + cardDateF + 
@@ -300,39 +313,133 @@ public class cart extends JFrame {
 //				
 //				fio.wrTransactionData(dataStr);
 				   
-			   AppleDemo.numOfItems = 0;
-				
-			   AppleDemo.numOf13Mini  = 0;
-			   AppleDemo.numOf13Pro   = 0;
-			   AppleDemo.numOf13 = 0;
-			   AppleDemo.numOf13ProMax  = 0;
-			   AppleDemo.updateTotal(0);
-			
-			   AppleDemo.textArea.setText("");
-			   AppleDemo.textField.setText("");
-			   
-			   firstNameF.setText("");
-			   midNameF.setText("");
-			   lastNameF.setText("");
-			   phoneF.setText("");
-			   addressF.setText("");
-			   aptF.setText("");
-			   zipF.setText("");
-			   cityF.setText("");
-			   cardNumF.setText("");
-			   cardMonthF.setText("");
-			   cardDateF.setText("");
-			   cardYearF.setText("");
-			   cvvF.setText("");
-			   appleIdF.setText("");
-			   statusF.setText("");
-				
-			   if (nameFieldStr.length() == 0)
+			   if (textArea.getText().trim().length() == 0)
 			   {
 				   JOptionPane.showMessageDialog(null, 
-			                   "ERROR!  Name field is empty!",
-			       "Food Truck Coupons",
+			                   "ERROR!  No items in shopping cart!",
+			       "Apple Shopping Cart",
 			                   JOptionPane.WARNING_MESSAGE);
+			   }
+			   else if (firstNameF.getText().trim().length() == 0)
+			   {
+				   JOptionPane.showMessageDialog(null, 
+			                   "ERROR!  First Name field is empty!",
+			       "Apple Shopping Cart",
+			                   JOptionPane.WARNING_MESSAGE);
+			   }
+			   else if (lastNameF.getText().trim().length() == 0)
+			   {
+				   JOptionPane.showMessageDialog(null, 
+			                   "ERROR!  Last Name field is empty!",
+			       "Apple Shopping Cart",
+			                   JOptionPane.WARNING_MESSAGE);
+			   }
+			   else if (phoneF.getText().trim().length() == 0)
+			   {
+				   JOptionPane.showMessageDialog(null, 
+			                   "ERROR!  Phone Number field is empty!",
+			       "Apple Shopping Cart",
+			                   JOptionPane.WARNING_MESSAGE);
+			   }
+			   else if (addressF.getText().trim().length() == 0)
+			   {
+				   JOptionPane.showMessageDialog(null, 
+			                   "ERROR!  Address field is empty!",
+			       "Apple Shopping Cart",
+			                   JOptionPane.WARNING_MESSAGE);
+			   }
+			   else if (aptF.getText().trim().length() == 0)
+			   {
+				   JOptionPane.showMessageDialog(null, 
+			                   "ERROR!  Apt field is empty!",
+			       "Apple Shopping Cart",
+			                   JOptionPane.WARNING_MESSAGE);
+			   }
+			   else if (zipF.getText().trim().length() == 0)
+			   {
+				   JOptionPane.showMessageDialog(null, 
+			                   "ERROR!  Zip Code field is empty!",
+			       "Apple Shopping Cart",
+			                   JOptionPane.WARNING_MESSAGE);
+			   }
+			   else if (cityF.getText().trim().length() == 0)
+			   {
+				   JOptionPane.showMessageDialog(null, 
+			                   "ERROR!  City field is empty!",
+			       "Apple Shopping Cart",
+			                   JOptionPane.WARNING_MESSAGE);
+			   }
+			   else if (cardNumF.getText().trim().length() == 0)
+			   {
+				   JOptionPane.showMessageDialog(null, 
+			                   "ERROR!  Card Number field is empty!",
+			       "Apple Shopping Cart",
+			                   JOptionPane.WARNING_MESSAGE);
+			   }
+			   else if (cardMonthF.getText().trim().length() == 0)
+			   {
+				   JOptionPane.showMessageDialog(null, 
+			                   "ERROR!  Card Month field is empty!",
+			       "Apple Shopping Cart",
+			                   JOptionPane.WARNING_MESSAGE);
+			   }
+			   else if (cardDateF.getText().trim().length() == 0)
+			   {
+				   JOptionPane.showMessageDialog(null, 
+			                   "ERROR!  Card Date field is empty!",
+			       "Apple Shopping Cart",
+			                   JOptionPane.WARNING_MESSAGE);
+			   }
+			   else if (cardYearF.getText().trim().length() == 0)
+			   {
+				   JOptionPane.showMessageDialog(null, 
+			                   "ERROR!  Card Year field is empty!",
+			       "Apple Shopping Cart",
+			                   JOptionPane.WARNING_MESSAGE);
+			   }
+			   else if (cvvF.getText().trim().length() == 0)
+			   {
+				   JOptionPane.showMessageDialog(null, 
+			                   "ERROR!  CVV field is empty!",
+			       "Apple Shopping Cart",
+			                   JOptionPane.WARNING_MESSAGE);
+			   }
+			   else if (appleIdF.getText().trim().length() == 0)
+			   {
+				   JOptionPane.showMessageDialog(null, 
+			                   "ERROR!  Apple ID field is empty!",
+			       "Apple Shopping Cart",
+			                   JOptionPane.WARNING_MESSAGE);
+			   }
+			   else
+			   {
+				   AppleDemo.numOfItems = 0;
+					
+				   AppleDemo.numOf13Mini  = 0;
+				   AppleDemo.numOf13Pro   = 0;
+				   AppleDemo.numOf13 = 0;
+				   AppleDemo.numOf13ProMax  = 0;
+				   AppleDemo.updateTotal(0);
+				
+				   AppleDemo.textArea.setText("");
+				   AppleDemo.textField.setText("");
+				   
+				   firstNameF.setText("");
+				   midNameF.setText("");
+				   lastNameF.setText("");
+				   phoneF.setText("");
+				   addressF.setText("");
+				   aptF.setText("");
+				   zipF.setText("");
+				   cityF.setText("");
+				   cardNumF.setText("");
+				   cardMonthF.setText("");
+				   cardDateF.setText("");
+				   cardYearF.setText("");
+				   cvvF.setText("");
+				   appleIdF.setText("");
+				   statusF.setText("");
+				   clearList();
 			   }
 			}
 			
@@ -350,11 +457,6 @@ public class cart extends JFrame {
 		helpBtn.setBounds(455, 439, 133, 34);
 		contentPane.add(helpBtn);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setEditable(false);
-		textArea.setBounds(660, 15, 286, 382);
-		contentPane.add(textArea);
-		
 		totalF = new JTextField();
 		totalF.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		totalF.setText("$" + String.format("%.2f", total) + "\r\n");
@@ -371,8 +473,31 @@ public class cart extends JFrame {
 	}
 	
 	public void setTotal(double val)
-	{
+	{	
 		total = val;
 		totalF.setText("$" + String.format("%.2f", total) + "\r\n");
+	}
+	
+	public void appendItem(String item, double price)
+	{
+		textArea.setText(textArea.getText() + "\n" + item + "\t\t" + price);
+		items.put(item, price);
+		if(counts.containsKey(item))
+		{
+			counts.put(item, counts.get(item)+1);
+		}
+		else
+		{
+			counts.put(item, 1);
+		}
+		setTotal(total+price);
+	}
+	
+	public void clearList()
+	{
+		textArea.setText("");
+		setTotal(0);
+		items.clear();
+		counts.clear();
 	}
 }

@@ -158,8 +158,11 @@ public class AppleDemo extends JFrame
 					numOfItems++;
 					numOf13++;
 					
-					textArea.append("iPhone 13 Mini         699\r\n");
-					updateTotal(total + 699);
+//					if(cartCount > 0)
+//					{
+						coup.appendItem("iphone13mini", 699);
+//					}
+					total += 699;
 					
 					textField.setText(formatter.format(total));
 					textField.repaint();
@@ -183,8 +186,8 @@ public class AppleDemo extends JFrame
 					numOfItems++;
 					numOf13Mini++;
 					
-					textArea.append("iPhone 13          799\r\n");
-					updateTotal(total + 799);
+						coup.appendItem("iphone13", 799);
+					total += 799;
 					
 					textField.setText(formatter.format(total));
 					textArea.repaint();
@@ -208,8 +211,9 @@ public class AppleDemo extends JFrame
 					numOfItems++;
 					numOf13Pro++;
 					
-					textArea.append("iPhone 13 Pro           999\r\n");
-					updateTotal(total + 999);
+					
+						coup.appendItem("iphone13pro", 999);
+					total += 999;
 					
 					textField.setText(formatter.format(total));
 					textArea.repaint();
@@ -235,8 +239,9 @@ public class AppleDemo extends JFrame
 					numOfItems++;
 					numOf13ProMax++;
 					
-					textArea.append("iPhone 13 Pro Max           1099\r\n");
-					updateTotal(total + 1099);
+					
+						coup.appendItem("iphone13pm", 699);
+					total += 699;
 										
 					textField.setText(formatter.format(total));
 					textArea.repaint();
@@ -402,10 +407,11 @@ public class AppleDemo extends JFrame
 						   numOf13Pro   = 0;
 						   numOf13 = 0;
 						   numOf13ProMax  = 0;
-						   updateTotal(0);
+						   coup.clearList();
 				
 						   textArea.setText("");
 						   textField.setText("");
+//						   coup.clearList();
 						   //idNum.setText("");
                       }
 		           }	

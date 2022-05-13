@@ -35,8 +35,8 @@ public class SocketUtils
                br.close();
 	        }
 	        else
-	        {        
-	           ipAddress  = "192.168.1.99"; //127.0.0.1 and "localhost" aren't working
+	        {
+	           ipAddress  = "10.88.17.136"; //127.0.0.1 and "localhost" aren't working
 	           portNumber = 3333;
 	        }
 	          

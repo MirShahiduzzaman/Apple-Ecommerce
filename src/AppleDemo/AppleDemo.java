@@ -526,13 +526,4 @@ public class AppleDemo extends JFrame
 	    		coup.setTotal(val);
 	    	}
 	    }
-	    
-	    void updateTotal2(double val)
-	    {
-	    	total = val;
-	    	if(cartCount > 0)
-	    	{
-	    		server.setTotal(val);
-	    	}
-	    }
 }
